@@ -1,0 +1,2702 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GridWorldEngine</name>
+    </assembly>
+    <members>
+        <member name="T:GridWorld.OptionsMenu">
+            <summary>
+            Summary description for OptionsMenu.
+            </summary>
+        </member>
+        <member name="F:GridWorld.OptionsMenu.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:GridWorld.OptionsMenu.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:GridWorld.OptionsMenu.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:GridWorld.OptionsMenu.Options">
+            <summary>
+            Returns the new options the user has selected.
+            </summary>
+        </member>
+        <member name="T:GridWorld.ListViewItemComparer">
+            <summary>
+            Used to sort the leaderboard and last game result
+            </summary>
+        </member>
+        <member name="M:GridWorld.ListViewItemComparer.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:GridWorld.ListViewItemComparer.#ctor(System.Int32,System.Boolean)">
+            <summary>
+            Main constructor
+            </summary>
+            <param name="column">Column index</param>
+            <param name="direction">true of acending</param>
+        </member>
+        <member name="M:GridWorld.ListViewItemComparer.AddSortOrder(System.Int32,System.Boolean)">
+            <summary>
+            Adds an extra sort order
+            </summary>
+            <param name="column">Column index</param>
+            <param name="direction">true of acending</param>
+        </member>
+        <member name="M:GridWorld.ListViewItemComparer.InsertIntoSortOrder(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Adds an extra sort order
+            </summary>
+            <param name="index">where in the order to insert the item</param>
+            <param name="column">Column index</param>
+            <param name="direction">true of acending</param>
+        </member>
+        <member name="M:GridWorld.ListViewItemComparer.Compare(System.Object,System.Object)">
+            <summary>
+            The main comparitor
+            </summary>
+            <param name="x"></param>
+            <param name="y"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.ListViewItemComparer.Compare(System.Int32,System.Boolean,System.Object,System.Object)">
+            <summary>
+            Compare the indexed columns, detech if decimal or string
+            </summary>
+            <param name="index">Column index</param>
+            <param name="x">Item 1</param>
+            <param name="y">Items</param>
+            <returns></returns>
+        </member>
+        <member name="T:GridWorld.ListViewSortOrder">
+            <summary>
+            Holder class used contain the column and sort order
+            </summary>
+        </member>
+        <member name="T:GridWorld.GridWorldForm">
+            <summary>
+            Summary description for GridWorldForm.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GridWorldForm.TheGridWorldForm">
+            <summary>
+            The instance of this form.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GridWorldForm.LoadTerrainDialog">
+            <summary>
+            This is the OpenFileDialog for loading a terrain file
+            </summary>
+        </member>
+        <member name="F:GridWorld.GridWorldForm.numberOfPlayers">
+            <summary>
+            The Number of player in the current game.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GridWorldForm.PlayerButtons">
+            <summary>
+            An Array of Buttons, one for each player in the game.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GridWorldForm.PlayerButtonToolTips">
+            <summary>
+            The tooltip text for each player button.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GridWorldForm.TerrainButtons">
+            <summary>
+            An array of Buttons, for the TerrainEditor
+            </summary>
+        </member>
+        <member name="F:GridWorld.GridWorldForm.theGameManager">
+            <summary>
+            The one and only GameManager object
+            </summary>
+        </member>
+        <member name="F:GridWorld.GridWorldForm.theGameServer">
+            <summary>
+            The one and only GameServer object
+            </summary>
+        </member>
+        <member name="F:GridWorld.GridWorldForm.DockingWindow">
+            <summary>
+            Docking window for displaying the Trace/Chat tabs in a seperate Windows Form
+            </summary>
+        </member>
+        <member name="F:GridWorld.GridWorldForm.BoardPanelCursor">
+            <summary>
+            The cursor which is displayed while the mouse pointer is over the board panel
+            </summary>
+        </member>
+        <member name="F:GridWorld.GridWorldForm.serverAIPlayerDirectory">
+            <summary>
+            The directory which holds the AI players for running server leagues.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GridWorldForm.serverIndividualAIPlayerPath">
+            <summary>
+            The path for the individual test AI player when running server leagues.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GridWorldForm.serverTerrainDirectory">
+            <summary>
+            The directory which holds the terrains for running server leagues.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GridWorldForm.serverResultsDirectory">
+            <summary>
+            The directory which holds the results from running server leagues.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GridWorldForm.MinDockPadding">
+            <summary>
+            This value is used to correctly set the trace/chat tab when it is docked to the form.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.SetupDockingMenu">
+            <summary>
+            Creates the context menu for trace/chat pane allowing the user to snap it off and put it in its own window.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.UnDock(System.Object,System.EventArgs)">
+            <summary>
+            Undocks the trace/chat tab from the app form.  Allows the player list to stretch out as far as it can.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.ReDock(System.Object,System.EventArgs)">
+            <summary>
+            Redocks the trace/chat window when it has been undocked
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.PlayButtonPlayMode_Click(System.Object,System.EventArgs)">
+            <summary>
+            Continue a paused game.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.PlayButtonReplayMode_Click(System.Object,System.EventArgs)">
+            <summary>
+            Continue replaying a paused game.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.StepForwardButtonPlayMode_Click(System.Object,System.EventArgs)">
+            <summary>
+            Take the next turn in single step mode.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.StepForwardButtonReplayMode_Click(System.Object,System.EventArgs)">
+            <summary>
+            Replay the next turn in single step mode.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.StepBackButtonPlayMode_Click(System.Object,System.EventArgs)">
+            <summary>
+            Undo the last turn (that changed the board position)
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.StepBackButtonReplayMode_Click(System.Object,System.EventArgs)">
+            <summary>
+            Undo the last replay turn that changed the board position
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.PauseButtonPlayMode_Click(System.Object,System.EventArgs)">
+            <summary>
+            Pause a continuously running game.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.PauseButtonReplayMode_Click(System.Object,System.EventArgs)">
+            <summary>
+            Pause a continuously replaying game.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.GridWorldButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Displays the app's trace information. Not currently used
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.BoardPanel_Resize(System.Object,System.EventArgs)">
+            <summary>
+            Handles the resize event for the board.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.BoardPanel_Paint(System.Object,System.Windows.Forms.PaintEventArgs)">
+            <summary>
+            Whenever the board panel is refreshed, re-render the game graphics
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.ZoomScrollBar_ValueChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles the zoom action if the zoom scrollbar is changed.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.BoardPanel_MouseMove(System.Object,System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            If the mouse moves while over the screen, deactivate the tooltip and then change the tooltip text if needed.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.BoardPanel_MouseLeave(System.Object,System.EventArgs)">
+            <summary>
+            When the cursor leaves the boundaries of the screen, deactivate the tooltip for it, and restore the default mouse cursor,
+            saving the old cursor.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.BoardPanel_MouseEnter(System.Object,System.EventArgs)">
+            <summary>
+            Restore the Board Panel cursor on reentering the board panel.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.BoardPanel_MouseDown(System.Object,System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            Handles a mouse down event on the screen (BoardPanel) by calling the correct funtion from the curent games InputEventHandlers class.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.BoardPanel_MouseUp(System.Object,System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            Handles a mouse up event on the screen (BoardPanel) by calling the correct funtion from the curent games InputEventHandlers class.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.HelpMenu_Click(System.Object,System.EventArgs)">
+            <summary>
+            Loads the GridWorld help files into the clients default browser.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.PassButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Send an empty PlayerCommandList (i.e. pass the turn) if the current player is interactive.
+            NB client must be in play mode to allow this button push.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.ScreenScrollV_Scroll(System.Object,System.Windows.Forms.ScrollEventArgs)">
+            <summary>
+            Handles a scroll event when the user moves the thumb on the vertical scroll bar.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.ScreenScrollH_Scroll(System.Object,System.Windows.Forms.ScrollEventArgs)">
+            <summary>
+            Handles a scroll event when the user moves the thumb on the horizontal scroll bar.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.LoadDefaultTerrain(GridWorld.IWorldState)">
+            <summary>
+            Loads the default terrain for the currently loaded game.
+            </summary>
+            <param name="ws">The WorldStat to use (client or server)</param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.LoadDefaultTerrainMenu_Click(System.Object,System.EventArgs)">
+            <summary>
+            Creates a new game from the default terrain.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.EnterPlayMode">
+            <summary>
+            Enter play mode on the client.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.EnterReplayMode">
+            <summary>
+            Enter replay mode on the client.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.EnterEditMode">
+            <summary>
+            Enter Edit mode for terrain editing on the client.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.LoadTerrainMenu_Click(System.Object,System.EventArgs)">
+            <summary>
+            Loads a terrain from a user selected file.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.SaveTerrainMenu_Click(System.Object,System.EventArgs)">
+            <summary>
+            Saves the current board position as a terrain file.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.SaveTerrain">
+            <summary>
+            Saves the current board position as a terrain file, also checks if there are any unsaved graphics and attempts to save them.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.LoadReplayMenu_Click(System.Object,System.EventArgs)">
+            <summary>
+            Loads a replay file fom a user selected file.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.SaveReplayMenu_Click(System.Object,System.EventArgs)">
+            <summary>
+            Allows the user to save a game as a replay file.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.SaveReplay">
+            <summary>
+            Lets the user create a new replay file and then saves the current game to it.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.LoadPlayerButtons">
+            <summary>
+            Create the player buttons for accessing different traces.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.PlayerButton_MouseEnter(System.Object,System.EventArgs)">
+            <summary>
+            Dynamically update the tooltip when the mouse cursor enters a player button so that score informartion etc can be presented in that way from the WorldState. 
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.LoadTerrainButtons">
+            <summary>
+            Create the ContentType buttons in the terrain editor.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.PlayerButtonClicked(System.Object,System.EventArgs)">
+            <summary>
+            Event Handler for a dynamically created Player Button.
+            Displays the trace information for that player.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.LoadDefaultAI(System.Object,System.EventArgs)">
+            <summary>
+            Load the default AI as a specified player.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.SetPlayerName(System.Windows.Forms.GroupBox,GridWorld.BasePlayer)">
+            <summary>
+            Sets a name of the correct length for a given BasePlayer
+            </summary>
+            <param name="bp"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.LoadAI(System.Object,System.EventArgs)">
+            <summary>
+            Load a user specified AI as a specified player.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.LoadInteractivePlayer(System.Object,System.EventArgs)">
+            <summary>
+            Replaces any AI player with a new Interactive player.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.GridWorldForm_Resize(System.Object,System.EventArgs)">
+            <summary>
+            Handles resize events from the form.  Mainly deals with making sure that the Docking Window, Player List and Trace/Chat tabs are in the correct positions and of the correct sizes.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.ResizePlayerList">
+            <summary>
+            Attempts to resize the player list to be something sensible.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.TerrainEnableEdit_Click(System.Object,System.EventArgs)">
+            <summary>
+            This enables edit mode, which allows users to make new terrains, when the user click on Enable Terrain Editing button in the terrain editor.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.CancelPickupPiece">
+            <summary>
+            If a user has a ContentType selected from the terrain editor, this cancels it and restores the cursor to normal.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.EnableTerrainControls">
+            <summary>
+            Enable the terrain controls.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.DisableTerrainControls">
+            <summary>
+            Disable the terrain controls.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.ColourChangeButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            When the user cliks on the Change button for Grid Line Colour, a browse window appears which allows them to select the new colour.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.DockingWindowReDock(System.Windows.Forms.Control)">
+            <summary>
+            Called if the user attempt to close the Docking Window, and simply redocks the control.
+            </summary>
+            <param name="c"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.LoadTerrainValues">
+            <summary>
+            Load terrain values from the current loaded map or from the default terrain values.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.UpdateTerrain_Click(System.Object,System.EventArgs)">
+            <summary>
+            When the user has finished assigning values to the new terrain, they click on the Update Terrain button the changes are then made.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.SetMapTitle">
+            <summary>
+            Sets the title of the current terrain when a game is loaded.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.TerrainButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            When a user clicks on a content button in the terrain editor, the cursor should change and then be ready to place this contenttpye on the board.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.GridWorldForm_MouseUp(System.Object,System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            When a user has a terrain piece picked up, he should be able to right click anywhere on the form and drop the pickup piece.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.GraphicsSaveButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            If the user has loaded any graphics into the game, they should be able to save these graphics toa  directory of thier choosing.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.GameTerrainTabControl_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            Whenever the Play/Replay game tab page is selected, disable the edit terrain buttons
+            and start playing a new game.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.EditTab_MouseUp(System.Object,System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            When a user has a terrain piece picked up, he should be able to right click anywhere on the form and drop the pickup piece.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.RewindToStartButtonPlayMode_Click(System.Object,System.EventArgs)">
+            <summary>
+            Rewind the game back to the start (i.e. the terrain file).
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.RewindToStartButtonReplayMode_Click(System.Object,System.EventArgs)">
+            <summary>
+            Rewind the game back to the start of the replay file (i.e. the terrain file).
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.ForwardToEndButtonReplayMode_Click(System.Object,System.EventArgs)">
+            <summary>
+            Fast forward to the end of the replay file.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.LoadSprite(System.Object,System.EventArgs)">
+            <summary>
+            Loads a sprite from a user selected location to use for the selected Player and ContentType
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.LoadDefaultSprite(System.Object,System.EventArgs)">
+            <summary>
+            Loads the default sprite for the selected Player and ContentType
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.AboutMenu_Click(System.Object,System.EventArgs)">
+            <summary>
+            Display the about window.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.RecordSaveTerrain_Click(System.Object,System.EventArgs)">
+            <summary>
+            Save current position as a terrain file.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.RecordSaveReplay_Click(System.Object,System.EventArgs)">
+            <summary>
+            Save current game as a replay game, preserving all WOrldStateChanges
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.ReplayToPlay(System.Object,System.EventArgs)">
+            <summary>
+            Moves a user from Replay to Play mode.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.TerrainValues_Enter(System.Object,System.EventArgs)">
+            <summary>
+            When tabbing through the terrain editor controls, this method highlights the contents of each control.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.ExitMenu_Click(System.Object,System.EventArgs)">
+            <summary>
+            Called from the exit menu and, suprisingly, exits the program.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.ChangeHumanName(System.Object,System.EventArgs)">
+            <summary>
+            Changes the name of a human/interactive plyer
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.UseAIGraphics(System.Object,System.EventArgs)">
+            <summary>
+            Tries to load any embedded bitmaps from a users .dll file, if any.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.UseTerrainGraphics(System.Object,System.EventArgs)">
+            <summary>
+            Tries to load any graphics for a specific player from the GraphicsPath location.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.UseDefaultGraphics(System.Object,System.EventArgs)">
+            <summary>
+            Loads all the default graphics for a specific player.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.ReloadPlayerButton(System.Int32,System.Windows.Forms.Button)">
+            <summary>
+            Changes the image for a particular PlayerButton, used whenever the Player graphics are change or a new player is loaded into the game.
+            </summary>
+            <param name="PlayerId"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.ReloadPlayerTerrainButtons(System.Int32)">
+            <summary>
+            Changes the images on all the terrain buttons in the terrain editor for a specific player.
+            </summary>
+            <param name="PlayerId"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.PlayerContextMenuPopup(System.Object,System.EventArgs)">
+            <summary>
+            When a user right clicks on the a player button from the Player List, pause the game.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.LoadAllDefaultMenu_Click(System.Object,System.EventArgs)">
+            <summary>
+            Loads all the default graphics for a game.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.LoadAllTerrainMenu_Click(System.Object,System.EventArgs)">
+            <summary>
+            Loads any Bitmaps with the correct name scheme from the GraphicsPath
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.LoadAllAIMenu_Click(System.Object,System.EventArgs)">
+            <summary>
+            Loads all Graphics for any non-default AI 's currently in the game.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.TerrainSaveTerrain_Click(System.Object,System.EventArgs)">
+            <summary>
+            Saves the current board position as a terrain file.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.ChangeBackgroundColour(System.Drawing.Color)">
+            <summary>
+            Use to change the default background colour of the board.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.DeActivatePlayerInList(GridWorld.PlayerRecord,System.Boolean)">
+            <summary>
+            Used to deactive a player in the playe rlist tab, has no effect on actual game play
+            </summary>
+            <param name="p">The player</param>
+            <param name="replaced">True if the player was replac\ed, false if deleted</param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:GridWorld.GridWorldForm.UpdatePlayerList(GridWorld.PlayerRecord,System.Int32,System.Int32)" -->
+        <member name="M:GridWorld.GridWorldForm.TraceRichTextBox_TextChanged(System.Object,System.EventArgs)">
+            <summary>
+            Ensures the RichTextBox scrolls as new text is added.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.BuildSortOrder(System.Int32,System.Int32[],System.Int32[],System.Boolean[])">
+            <summary>
+            Builds a sort order for a game tab
+            </summary>
+            <param name="offset">Any specially manualy added columns, offset to column index</param>
+            <param name="displayCols">Column details</param>
+            <param name="sortCols">Index to sort by</param>
+            <param name="sortOrder">Asc ord des</param>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.BuildSortOrder(System.Int32[],System.Int32[],System.Boolean[])">
+            <summary>
+            Builds a sort order for a game tab
+            </summary>
+            <param name="displayCols">Column details</param>
+            <param name="sortCols">Index to sort by</param>
+            <param name="sortOrder">Asc ord des</param>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.UpdateUIControlText(System.Windows.Forms.Control,System.String,System.Boolean)">
+            <summary>
+            Common method to update any text fields, tries to update it directly if in the right thread
+            else does a cross thread invoke
+            </summary>
+            <param name="control">The control containaining the text filed</param>
+            <param name="text">The new text</param>
+            <param name="append">False to overwrite</param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.UpdateUIStatusBarText(System.Windows.Forms.StatusBar,System.String)">
+            <summary>
+            Common method to update any text fields, tries to update it directly if in the right thread
+            else does a cross thread invoke
+            </summary>
+            <param name="bar">The control containaining the text filed</param>
+            <param name="text">The new text</param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.RefreshUI">
+            <summary>
+            Common method to cause the UI to refresh
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.UpdatePlayerListCallBack(GridWorld.PlayerRecord,System.Int32,System.Int32)">
+            <summary>
+            Common method to update any text fields, tries to update it directly if in the right thread
+            else does a cross thread invoke
+            </summary>
+            <param name="player">The control containaining the text filed</param>
+            <param name="games">The new text</param>
+            <param name="gameID">The new text</param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.AddServerLogCallBack(System.DateTime,System.String,System.Boolean)">
+            <summary>
+            Common method to update any text fields, tries to update it directly if in the right thread
+            else does a cross thread invoke
+            </summary>
+            <param name="date">The control containaining the text filed</param>
+            <param name="result">The new text</param>
+            <param name="addBlank">The new text</param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.UpdateLeaderBoardTabCallBack(System.Collections.SortedList)">
+            <summary>
+            Update the last game tab on the main form
+            </summary>
+            <param name="res"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.UpdateLeaderBoardTab(System.Collections.SortedList)">
+            <summary>
+            Update the last game tab on the main form
+            </summary>
+            <param name="res"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.UpdateLastGameTabCallBack(System.Collections.ArrayList)">
+            <summary>
+            Update the last game tab on the main form
+            </summary>
+            <param name="res"></param>
+        </member>
+        <member name="M:GridWorld.GridWorldForm.UpdateLastGameTab(System.Collections.ArrayList)">
+            <summary>
+            Update the last game tab on the main form
+            </summary>
+            <param name="res"></param>
+        </member>
+        <member name="P:GridWorld.GridWorldForm.LeaderBoard">
+            <summary>
+             Datagrid for leaderboard
+            </summary>
+        </member>
+        <member name="P:GridWorld.GridWorldForm.LastGame">
+            <summary>
+             Datagrid for lastgame
+            </summary>
+        </member>
+        <member name="T:GridWorld.GridWorldForm.UpdateUIControlTextDelegate">
+            <summary>
+            The delegate definition for cross thread updating
+            </summary>
+            <param name="control"></param>
+            <param name="text"></param>
+        </member>
+        <member name="T:GridWorld.GridWorldForm.UpdateUIStatusBarTextDelegate">
+            <summary>
+            The delegate definition for cross thread updating
+            </summary>
+            <param name="bar"></param>
+            <param name="text"></param>
+        </member>
+        <member name="T:GridWorld.GridWorldForm.RefreshUIDelegate">
+            <summary>
+            The delegate definition for cross thread updating
+            </summary>
+        </member>
+        <member name="T:GridWorld.GridWorldForm.UpdatePlayerListDelegate">
+            <summary>
+            The delegate definition for cross thread updating
+            </summary>
+            <param name="player">The control containaining the text filed</param>
+            <param name="games">The new text</param>
+            <param name="gameID">The new text</param>
+        </member>
+        <member name="T:GridWorld.GridWorldForm.AddServerLogDelegate">
+            <summary>
+            The delegate definition for cross thread updating
+            </summary>
+            <param name="date">The control containaining the text filed</param>
+            <param name="result">The new text</param>
+            <param name="addBlank">The new text</param>
+        </member>
+        <member name="T:GridWorld.GridWorldForm.UpdateLeaderBoardTabDelegate">
+            <summary>
+            Update the last game tab on the main form
+            </summary>
+            <param name="res"></param>
+        </member>
+        <member name="T:GridWorld.GridWorldForm.UpdateLastGameTabDelegate">
+            <summary>
+            Update the last game tab on the main form
+            </summary>
+            <param name="res"></param>
+        </member>
+        <member name="T:GridWorld.LocalAppDomainHandler">
+            <summary>
+            The loader that acts as a procy to the AppDomain
+            </summary>
+        </member>
+        <member name="M:GridWorld.LocalAppDomainHandler.#ctor(System.String)">
+            <summary>
+            Default constructor
+            </summary>
+            <param name="AIDirectory">The source assembly directory</param>
+        </member>
+        <member name="M:GridWorld.LocalAppDomainHandler.SetAppDomainPolicy(System.AppDomain)">
+            <summary>
+            Sets the permission for the AppDomain
+            </summary>
+            <param name="appDomain">The traget AppDomain</param>
+        </member>
+        <member name="M:GridWorld.LocalAppDomainHandler.FindNamedPermissionSet(System.String)">
+            <summary>
+            Tool to find given permission sets
+            </summary>
+            <param name="name">The set set</param>
+            <returns>The actual set</returns>
+        </member>
+        <member name="M:GridWorld.LocalAppDomainHandler.RunGame(System.String,System.String[],System.Int32,System.Int32,System.String,System.Type,GridWorld.WorldStateChange[],System.Double,System.Double,System.Int32,System.Int32)">
+            <summary>
+            A proxy to the new remote appdomain, parameters are fluid at present, so look in remote loader for details
+            </summary>
+            <param name="gameRulesDll"></param>
+            <param name="players"></param>
+            <param name="width"></param>
+            <param name="height"></param>
+            <param name="terrain"></param>
+            <param name="type"></param>
+            <param name="wscArray"></param>
+            <param name="turnTimeOutPeriod"></param>
+            <param name="gameTimeOutPeriod"></param>
+            <param name="maxTurns"></param>
+            <param name="maxOvertime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.LocalAppDomainHandler.EndGame">
+            <summary>
+            End the games as soon as possible
+            </summary>
+        </member>
+        <member name="M:GridWorld.LocalAppDomainHandler.Unload">
+            <summary>
+            Unloads the AppDomain
+            </summary>
+        </member>
+        <member name="M:GridWorld.LocalAppDomainHandler.LoadPlayerRecord(System.String)">
+            <summary>
+            Get the details of a new AI DLL
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="P:GridWorld.LocalAppDomainHandler.TurnCount">
+            <summary>
+            Get the turn count from the remoteloader
+            </summary>
+        </member>
+        <member name="T:GridWorld.HumanNameModal">
+            <summary>
+            Summary description for HumanNameModal.
+            </summary>
+        </member>
+        <member name="F:GridWorld.HumanNameModal.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:GridWorld.HumanNameModal.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:GridWorld.HumanNameModal.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:GridWorld.GameManager">
+            <summary>
+            The GameManager class handles:
+            1. The rules of the game using the grid only.
+            2. The graphics of the game.
+            3. Leagues.
+            4. File I/O for results, terrains (= grid + graphics) and replay files.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameManager.GameSpecs">
+            <summary>
+            Contains all of the objects and data specific to the game (i.e. not general to GridWorldEngine).
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameManager.theGame">
+            <summary>
+            The currently running game. The only time when there is no theGame is 
+            when a new game is requested (including the first game) but is not yet set up.
+            If a game is finished its theGame sticks around until a new game is requested
+            (e.g. for loading/saving).
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameManager.theGameThread">
+            <summary>
+            The unique thread in which the one and only game with graphics runs.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameManager.waitingForInterface">
+            <summary>
+            Is theGame waiting for some event in the interface? 
+            This will be true when replaying in single step mode, when there are no more moves,
+            and when waiting for a player turn.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameManager.lastClientEvent">
+            <summary>
+            The most recent event which the client wishes to send to the game thread.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameManager.theClientMode">
+            <summary>
+            The mode which the game client is currently in: Playing, Replaying or EditingTerrain
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameManager.gameCreated">
+            <summary>
+            Has game has been created and is ready to go or already going.
+            NB there is a time while disposing of an old game and creating a new one
+            or creating a new one for the first time when gameCreated is false.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameManager.theGridWorldGraphics">
+            <summary>
+            The graphics display handle for sending world state changes.
+            TODO change back to private when GameManager code is merged.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameManager.theGraphicsPanel">
+            <summary>
+            The graphics panel on the GridWorld App form.
+            TODO change back to private when GameManager code is merged.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameManager.theGraphicsHorizontalScrollBar">
+            <summary>
+            The graphics horizontal scrollbar on the GridWorld App form.
+            TODO change back to private when GameManager code is merged.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameManager.theGraphicsVerticalScrollBar">
+            <summary>
+            The graphics vertical scrollbar on the GridWorld App form.
+            TODO change back to private when GameManager code is merged.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameManager.theGraphicsZoomScrollBar">
+            <summary>
+            The graphics zoom scrollbar on the GridWorld App form.
+            TODO change back to private when GameManager code is merged.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameManager.theTurnCounterLabel">
+            <summary>
+            The label which is used to display the turn counter
+            TODO change back to private when GameManager code is merged.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameManager.theStatusBar">
+            <summary>
+            The status bar panel at the bottom of the screen, used to communivate messages to the user.
+            TODO change back to private when GameManager code is merged.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameManager.#ctor">
+            <summary>
+            Not used - for backward compatibility. TODO remove this.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameManager.thePlayerPanel">
+            <summary>
+            The Panel that contains all the player buttons and information.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameManager.TraceWindow">
+            <summary>
+            The TextBox to contain the trace of the selected player.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameManager.PlayerIdTrace">
+            <summary>
+            The id of the player who trace the user has selected to view.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameManager.maxNumberOfTraceCharacters">
+            <summary>
+            The maximum number of characters that a players trace will return.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameManager.gameTurnDelay">
+            <summary>
+            This is a double representing the speed the current game is running in the client from 0 to 100.
+            A speed of 0 is fast (zero delay) whereas a speed of 100 means each turn takes a minimum
+            of 5 seconds of elapsed time if it is an AI player or a replay.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameManager.turnTimer">
+            <summary>
+            The timer used to time the turns when runing continuously.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameManager.theGridWorldForm">
+            <summary>
+            To allow callbacks for UI updates
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameManager.#ctor(GridWorld.GridWorldForm,System.Windows.Forms.Panel,System.Windows.Forms.HScrollBar,System.Windows.Forms.VScrollBar,System.Windows.Forms.HScrollBar,System.Windows.Forms.Label,System.Windows.Forms.StatusBar,System.Windows.Forms.Panel,System.Windows.Forms.RichTextBox,GridWorld.IGameSpecifics)">
+            <summary>
+            The Constructor for the game manager
+            </summary>
+            <param name="form">Parent form, required for callbacks</param>
+            <param name="p">The screen panel</param>
+            <param name="x">The Horizontal scrollbar</param>
+            <param name="y">The Vertical scrollbar</param>
+            <param name="z">The Zoom scrollbar</param>
+            <param name="tc">The turn counter label</param>
+        </member>
+        <member name="M:GridWorld.GameManager.AbortGameThread">
+            <summary>
+            Abort the game thread if it is still running.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameManager.LoadAIPlayer(System.String)">
+            <summary>
+            Load an AIPlayer.dll.
+            Note that this does no security or error checking at all.
+            BM made this secure against loading the wrong type of file, malicious
+            code in the constructor etc.
+            </summary>
+            <param name="pathname"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.GameManager.LoadAIPlayerForClient(System.String)">
+            <summary>
+            Load an AIPlayer.dll for the client.
+            Note that this does no security or error checking at all.
+            </summary>
+            <param name="pathname"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.GameManager.CheckPlayerBaseType(System.Type)">
+            <summary>
+            Recursive loader to make sure the class in question is derived from the right base class
+            </summary>
+            <param name="type">The type of the object </param>
+            <returns>True if correct type</returns>
+        </member>
+        <member name="M:GridWorld.GameManager.GetCurrentInteractivePlayer">
+            <summary>
+            Return the current player for whom we are awaiting input if that player
+            is active, else return null.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.GameManager.HandlePlayButtonClickedEvent">
+            <summary>
+            Continue running a paused game. If I am at the end of the replay then
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameManager.HandleStepBackButtonClickedEvent">
+            <summary>
+            Step back to display the previous turn of the replay file if possible.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameManager.HandleStepForwardButtonClickedEvent">
+            <summary>
+            Step forward:
+            - If we are at the end of the current replay file then get a new turn (interactive or player)
+            - If we are not at the end of the current replay file and the next replay turn is interactive
+            then replay it. 
+            - If we are not at the end of the current replay file and the next replay turn is AI
+            then call the AI code. If the AI returns a value different to that in the replay file
+            use the replay file result and flag this to the user.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameManager.HandlePauseButtonClickedEvent">
+            <summary>
+            Pause the currently running game.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameManager.HandleRewindToStartButtonClickedEvent">
+            <summary>
+            Rewind the current game back to the initial terrain file and turn 1.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameManager.HandleForwardToEndButtonClickedEvent">
+            <summary>
+            Fast forward the current replay file to the last turn.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameManager.StartReplayingGame">
+            <summary>
+            Start playing a game using terrain and players already loaded from an XML file.
+            and WorldStateChanges from the loaded replay file.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameManager.ContinueReplayingGame">
+            <summary>
+            Continue replaying from the current WorldState and TurnNumber
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameManager.StartReplayGameThread">
+            <summary>
+            Start the game thread for replaying (not playing) a new game or a continued game here.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameManager.ContinuePlayingGame">
+            <summary>
+            Continue playing a game from the current turn using the current WorldState.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameManager.StartPlayingGame">
+            <summary>
+            Start playing a game using terrain and players already loaded from an XML file.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameManager.UpdateTurnCounterLabel">
+            <summary>
+            Update the turn counter label to reflect the current turn number
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameManager.StartPlayGameThread">
+            <summary>
+            Start the game thread for playing (not replaying) a new game here.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameManager.TurnTimerIsReadyForMove">
+            <summary>
+            Is the Turn timer ready for the next move when running in continuous mode
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.GameManager.ResetTurnTimer">
+            <summary>
+            Reset the turn timer to wait for a new turn period
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.GameManager.ScrollControlIntoViewCallBack(System.Windows.Forms.GroupBox,System.Windows.Forms.Panel)">
+            <summary>
+            Common method to scroll a GroupBox into view, tries to do it directly if in the right thread
+            else does a cross thread invoke
+            </summary>
+            <param name="date">The control containaining the text filed</param>
+            <param name="result">The new text</param>
+            <param name="addBlank">The new text</param>
+        </member>
+        <member name="M:GridWorld.GameManager.SetCurrentActivePlayer">
+            <summary>
+            On each turn there is only one player active.  This indicates which one in the PlayerList
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameManager.UnSetCurrentPlayer">
+            <summary>
+            Set all player's GroupBoxes to the "inactive" colour.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameManager.UpdateTrace">
+            <summary>
+            Updates the trace of the currently selected player, if there is one.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameManager.UpdateScore">
+            <summary>
+            Update a players score on each turn.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameManager.getPlayerGroupBox(System.Int32)">
+            <summary>
+            Gets a specified player groupbox from thePlayerList.  Can be called by the GridWorldApp
+            </summary>
+            <param name="playerId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.GameManager.PlayNewTurn">
+            <summary>
+            Get the moves for anew turn and update the board and turn counter.
+            Change to replay mode if game is finished.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameManager.PlayTurnDealingWithClientEvents">
+            <summary>
+            Play a single turn
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameManager.ForceRender">
+            <summary>
+            Force the graphics to be rendered.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameManager.HandleScroll(System.Int32,System.Int32)">
+            <summary>
+            A method for dealing with a scroll event from the user.
+            </summary>
+            <param name="newValue">The new location for the rectangle representing the view window</param>
+            <param name="vert">A flag to say wether the scroll is horizontal or vertical</param>
+        </member>
+        <member name="M:GridWorld.GameManager.HandleZoom(System.Int32)">
+            <summary>
+            A simple method that takes information from a zoom event and hands it to the GraphicsDisplay class to deal with.
+            </summary>
+            <param name="zoomPercentage">The percentage of zoom that user has selected. 0% is the size of one gridsquare. 100% is the full board on the screen.</param>
+        </member>
+        <member name="M:GridWorld.GameManager.HandleResize(System.Drawing.Rectangle)">
+            <summary>
+            A simple method which hands information from a resize event to the GraphicsDisplay class to deal with it.
+            </summary>
+            <param name="r">The new rectangle which represents the new size of the screen</param>
+        </member>
+        <member name="M:GridWorld.GameManager.GetBitmaps(GridWorld.BasePlayer[],System.String)">
+            <summary>
+            Gets all the bitmaps for each player as well as any default players
+            </summary>
+            <returns>A GraphicsImages object which contains the default textures and/or the custom images</returns>
+        </member>
+        <member name="M:GridWorld.GameManager.GetToolTipText(System.Drawing.Point)">
+            <summary>
+            Gets the tooltip for the given grid square that the mouse is hovering over on the screen
+            </summary>
+            <param name="p">The location of the mouse cursor from the top left of the ScreenPanel in pixels</param>
+            <returns>The tooltip for the  grid square</returns>
+        </member>
+        <member name="M:GridWorld.GameManager.GetGridSquareLocation(System.Drawing.Point)">
+            <summary>
+            Turns a Point object representing a pixel from the game screen, into a GridSquare location in the games Grid array
+            </summary>
+            <param name="p"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.GameManager.LoadXMLReplayOrTerrain(System.IO.Stream,System.String,System.Boolean,System.Boolean,GridWorld.IWorldState)">
+            <summary>
+            Takes an IO stream from an XML document and a path to the directory of the XML file and tries to create a game.
+            </summary>
+            <param name="xmlfile">A System.IO.Stream object that points to an XML file</param>
+        </member>
+        <member name="M:GridWorld.GameManager.CreateGridWorldGraphics(System.Int32,System.Drawing.Color,System.Boolean,System.Int32,System.Int32,GridWorld.GraphicsImages,System.Int32)">
+            <summary>
+            Creates a Graphics Display object and returns it
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameManager.SavePosition(System.String,System.String,System.Boolean)">
+            <summary>
+            Save position as a replay or terrain file (depending on whether isreplay is true)
+            </summary>
+            <param name="fp"></param>
+            <param name="isreplay"></param>
+        </member>
+        <member name="M:GridWorld.GameManager.GetCurrentTerrainValues">
+            <summary>
+            Returns an interger array of values for the current board in play - 
+            0    - Number of Players : 
+            1, 2 - Grid Height and Width in squares : 
+            3, 4 - Grid Square Height and Width in pixels : 
+            5    - Grid Line Width in pixels : 
+            6    - Colour of the Grid Lines : 
+            7    - The name of the current terrain
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.GameManager.GetDefaultTerrainValues">
+            <summary>
+            Get an integer array for the default terain values
+            0    - Number of Players : 
+            1, 2 - Grid Height and Width in squares : 
+            3, 4 - Grid Square Height and Width in pixels : 
+            5    - Grid Line Width in pixels : 
+            6    - Colour of the Grid Lines : 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.GameManager.CreateNewTerrain(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Drawing.Color,System.String,System.String,System.Collections.ArrayList)">
+            <summary>
+            Changes the size of the grid.
+            Changes the size of a GridSquare.
+            Changes the number of players. 
+            Changes the GridLine Width.
+            Changes the GridLine Colour (if zero, show gridline is set to be false).
+            Loads a new Background image if specified.
+            Used by the terrain editor.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameManager.TerrainUpdateWorldState(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Used by the terrain editor, this method makes creates a WorldStateChanges and adds it to the worldstates worldstatechanges.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameManager.FlattenWorldStateChanges">
+            <summary>
+            Takes only the last WorldStateChange for a GridSquare and removes all others.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameManager.UpdateGraphics">
+            <summary>
+            Updates the current board graphics when the graphics for a player have been changed (eg when loading in a new AI player)
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.GameManager.RedrawPlayerPieces(System.Int32)">
+            <summary>
+            Flattens the worldstate and then redraws all the players pieces on the board
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameManager.ReplacePlayer(GridWorld.BasePlayer)">
+            <summary>
+            Replaces an existing BasePlayer with another BasePlayer. For example when switching from an AI player to a human plaer, or visa versa
+            </summary>
+            <param name="id"></param>
+            <param name="bp"></param>
+        </member>
+        <member name="P:GridWorld.GameManager.TheGame">
+            <summary>
+            Accessor for the game which is running in the graphical client.
+            </summary>
+        </member>
+        <member name="P:GridWorld.GameManager.TheWorldState">
+            <summary>
+            Accessor for the WorldState of the game which is running in the graphical client.
+            </summary>
+        </member>
+        <member name="P:GridWorld.GameManager.MaxNumberOfTraceCharacters">
+            <summary>
+            The maximum number of characters that a players trace will return.
+            </summary>
+        </member>
+        <member name="P:GridWorld.GameManager.GamePlayers">
+            <summary>
+            Return the array of players in the current game.
+            </summary>
+        </member>
+        <member name="P:GridWorld.GameManager.StatusBarText">
+            <summary>
+            The text which is shown on the StatusBar
+            </summary>
+        </member>
+        <member name="T:GridWorld.GameManager.ClientEvent">
+            <summary>
+            The events which the client wishes to send to the game thread.
+            </summary>
+        </member>
+        <member name="T:GridWorld.GameManager.ClientMode">
+            <summary>
+            The modes which the game client can be in: Playing, Replaying and EditingTerrain
+            </summary>
+        </member>
+        <member name="T:GridWorld.GameManager.ScrollControlIntoViewDelegate">
+            <summary>
+            The delegate definition for cross thread updating
+            </summary>
+            <param name="gb">The GroupBox to be scrolled into view</param>
+            <param name="p">The Panel containing the GroupBox to be scrolled into view</param>
+        </member>
+        <member name="T:GridWorld.RemotingResults">
+            <summary>
+            Class used to return results from the second appdomain
+            </summary>
+        </member>
+        <member name="T:GridWorld.About">
+            <summary>
+            Summary description for About.
+            </summary>
+        </member>
+        <member name="F:GridWorld.About.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:GridWorld.About.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:GridWorld.About.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:GridWorld.InteractivePlayer">
+            <summary>
+            Summary description for InteractivePlayer.
+            </summary>
+        </member>
+        <member name="T:GridWorld.BasePlayer">
+            <summary>
+            Functionality and data comon to AIPlayer and InteractivePlayer.
+            </summary>
+        </member>
+        <member name="F:GridWorld.BasePlayer.PlayerGraphics">
+            <summary>
+            An array to hold the graphics for an AI.
+            </summary>
+        </member>
+        <member name="F:GridWorld.BasePlayer.AIPath">
+            <summary>
+            The path of the AI player (if one exists).
+            </summary>
+        </member>
+        <member name="F:GridWorld.BasePlayer.UserName">
+            <summary>
+            The username of the person who uploaded this AI player (if uploaded via the server).
+            </summary>
+        </member>
+        <member name="F:GridWorld.BasePlayer.AssemblyDateTime">
+            <summary>
+            The time read from the asembly file as to when it was last written to
+            used to provide an extra check for server file change event
+            </summary>
+        </member>
+        <member name="F:GridWorld.BasePlayer.LastServerGameEndDateTime">
+            <summary>
+            The time at which this AI last played a game on the server. Since this is set to "A very long time ago"
+            when a new player is loaded, new players should get games quickly.
+            </summary>
+        </member>
+        <member name="F:GridWorld.BasePlayer.NumGamesOnCurrentTerrain">
+            <summary>
+            The number of games this player has played on the current terrain. Used by the server.
+            </summary>
+        </member>
+        <member name="F:GridWorld.BasePlayer.CPUTimeUsedInSeconds">
+            <summary>
+            The CPU time used by this player in the current game.
+            </summary>
+        </member>
+        <member name="F:GridWorld.BasePlayer.aITimePerTurn">
+            <summary>
+            The time (in seconds) that an AI player has to execute a single move.
+            This is a local copy in the BasePlayer so that it is visible to Player AI.
+            </summary>
+        </member>
+        <member name="F:GridWorld.BasePlayer.aITimePerGame">
+            <summary>
+            The time (in seconds) that an AI player has to execute all of its moves in a game.
+            This is a local copy in the BasePlayer so that it is visible to Player AI.
+            </summary>
+        </member>
+        <member name="F:GridWorld.BasePlayer.maxNumOverTimeTurns">
+            <summary>
+            The maximum number of turns that an AI player is allowed to go over the turn limit before being disqualified.
+            This is a local copy in the BasePlayer so that it is visible to Player AI.
+            </summary>
+        </member>
+        <member name="F:GridWorld.BasePlayer.maxNumTurns">
+            <summary>
+            The maximum number of turns in a game.
+            This is a local copy in the BasePlayer so that it is visible to Player AI.
+            </summary>
+        </member>
+        <member name="F:GridWorld.BasePlayer.RandomNumber">
+            <summary>
+            A random number used to determine the ranking on the server for each terrain.
+            </summary>
+        </member>
+        <member name="F:GridWorld.BasePlayer.NumOvertimeTurns">
+            <summary>
+            The number of overtime turns a player has made in a game
+            </summary>
+        </member>
+        <member name="F:GridWorld.BasePlayer.Disqualified">
+            <summary>
+            Was this player disqualified from the most recently played game.
+            </summary>
+        </member>
+        <member name="F:GridWorld.BasePlayer.Name">
+            <summary>
+            The display name of this player (AI or interactive)
+            </summary>
+        </member>
+        <member name="F:GridWorld.BasePlayer.PlayerTrace">
+            <summary>
+            The output trace for this AI
+            </summary>
+        </member>
+        <member name="F:GridWorld.BasePlayer.AIBytes">
+            <summary>
+            The byte data loaded in from file which can be used to reconstruct this
+            player's AI if necessary.
+            </summary>
+        </member>
+        <member name="F:GridWorld.BasePlayer.id">
+            <summary>
+            The first player has ID 1, the second player ID 2, etc.
+            </summary>
+        </member>
+        <member name="F:GridWorld.BasePlayer.isInteractive">
+            <summary>
+            Is this player interactive (otherwise it is an AI player).
+            </summary>
+        </member>
+        <member name="F:GridWorld.BasePlayer.IsInCurrentGame">
+            <summary>
+            Is this player currently active or is the player not going to make any further
+            turns in the current game?
+            </summary>
+        </member>
+        <member name="M:GridWorld.BasePlayer.#ctor(System.Int32)">
+            <summary>
+            Constructor for a (human or AI) player.
+            Assumed to be Default AI by default.
+            </summary>
+            <param name="identity">Player number 1,2,...</param>
+        </member>
+        <member name="M:GridWorld.BasePlayer.#ctor(System.Int32,System.Boolean)">
+            <summary>
+            Constructor for a (human or AI) player.
+            </summary>
+            <param name="identity">Player number 1,2,...</param>
+            <param name="isinteractive">Is this player interactive?</param>
+        </member>
+        <member name="M:GridWorld.BasePlayer.#ctor">
+            <summary>
+            Default constructor for a (human or AI) player.
+            Does not assign Player number (sets it to -1).
+            </summary>
+        </member>
+        <member name="M:GridWorld.BasePlayer.SetTimeParameters(System.Double,System.Double,System.Int32,System.Int32)">
+            <summary>
+            Set the local copy of the game time parameters. Note that these parameters are only held locally so that
+            they are visible to student AI players.
+            </summary>
+        </member>
+        <member name="M:GridWorld.BasePlayer.WriteTrace(System.Object)">
+            <summary>
+            Add a string to the trace window for this player.
+            </summary>
+            <param name="traceobj">The object whose ToString() is to append to the trace window for this player.</param>
+        </member>
+        <member name="M:GridWorld.BasePlayer.GetTurnCommands(GridWorld.IPlayerWorldState)">
+            <summary>
+            This is the function that must be overridden by the student AI. As it is implemented it 
+            makes a random legal move each turn.
+            </summary>
+            <param name="grid"></param>
+            <returns></returns>
+        </member>
+        <member name="P:GridWorld.BasePlayer.CPUTimeUsedSeconds">
+            <summary>
+            The CPU time (in seconds) used so far by this AI player in the current game.
+            </summary>
+        </member>
+        <member name="P:GridWorld.BasePlayer.AITimePerTurn">
+            <summary>
+            The time (in seconds) that an AI player has to execute a single move.
+            </summary>
+        </member>
+        <member name="P:GridWorld.BasePlayer.AITimePerGame">
+            <summary>
+            The time (in seconds) that an AI player has to execute all of its moves in a game.
+            </summary>
+        </member>
+        <member name="P:GridWorld.BasePlayer.MaxNumOverTimeAITurns">
+            <summary>
+            The maximum number of turns that an AI player is allowed to go over the turn limit before being disqualified.
+            </summary>
+        </member>
+        <member name="P:GridWorld.BasePlayer.MaxNumTurns">
+            <summary>
+            The maximum number of turns in a game.
+            </summary>
+        </member>
+        <member name="P:GridWorld.BasePlayer.ID">
+            <summary>
+            The ID of this player. Player 1 has ID 1, Player 2 has ID 2, ...
+            </summary>
+        </member>
+        <member name="P:GridWorld.BasePlayer.IsInteractive">
+            <summary>
+            Is this player interactive (otherwise it is an AI player).
+            </summary>
+        </member>
+        <member name="F:GridWorld.InteractivePlayer.waitingForTurnCommands">
+            <summary>
+            Indicates whether the App thread is no longer waiting for turn commands 
+            (e.g. because a button is pushed)
+            </summary>
+        </member>
+        <member name="F:GridWorld.InteractivePlayer.theWorldState">
+            <summary>
+            A handle to theWorldState.
+            </summary>
+        </member>
+        <member name="M:GridWorld.InteractivePlayer.#ctor(System.Int32)">
+            <summary>
+            Construct an interactive player.
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:GridWorld.InteractivePlayer.GetTurnCommands(GridWorld.IPlayerWorldState)">
+            <summary>
+            Waits for a legal turn to be input by the interactive player.
+            </summary>
+            <returns> The ICommand corresponding to the players input turn</returns>
+        </member>
+        <member name="T:GridWorld.ActivePlayerListItem">
+            <summary>
+            Class used to generate the active player list
+            </summary>
+        </member>
+        <member name="M:GridWorld.ActivePlayerListItem.#ctor">
+            <summary>
+            Default constructor used for serialisation
+            </summary>
+        </member>
+        <member name="M:GridWorld.ActivePlayerListItem.#ctor(System.String,System.String)">
+            <summary>
+            Main constructor
+            </summary>
+            <param name="name"></param>
+            <param name="uploadDate"></param>
+        </member>
+        <member name="P:GridWorld.ActivePlayerListItem.Name">
+            <summary>
+            Name of the player 
+            </summary>
+        </member>
+        <member name="P:GridWorld.ActivePlayerListItem.Uploaded">
+            <summary>
+            Date it was uploaded
+            </summary>
+        </member>
+        <member name="T:GridWorld.RemoteAppDomainHandler">
+            <summary>
+            The external interface for the AppDomain
+            </summary>
+        </member>
+        <member name="F:GridWorld.RemoteAppDomainHandler.manualEvent">
+            <summary>
+            Semaphore to block turn operations
+            </summary>
+        </member>
+        <member name="F:GridWorld.RemoteAppDomainHandler.turnCount">
+            <summary>
+            Count for turns per game
+            </summary>
+        </member>
+        <member name="F:GridWorld.RemoteAppDomainHandler.endGame">
+            <summary>
+            Ends the game as soon as possible
+            </summary>
+        </member>
+        <member name="M:GridWorld.RemoteAppDomainHandler.#ctor">
+            <summary>
+            Default Constructor
+            </summary>
+        </member>
+        <member name="M:GridWorld.RemoteAppDomainHandler.EndGame">
+            <summary>
+            End the games as soon as possible
+            </summary>
+        </member>
+        <member name="M:GridWorld.RemoteAppDomainHandler.RunGame(System.String,System.String[],System.Int32,System.Int32,System.String,System.Type,GridWorld.WorldStateChange[],System.Double,System.Double,System.Int32,System.Int32)">
+            <summary>
+            Runs a game in this app domain
+            The parameters are still fluids beware documentation
+            </summary>
+            <param name="gameRulesDll">The path to the DLL with the world state object</param>
+            <param name="playerNames">The array of players to load</param>
+            <param name="width">Map size</param>
+            <param name="height">Map size</param>
+            <param name="terrainName">Full path to terrain to load</param>
+            <param name="wstype">The type of the worldstate to load (has to be passed as cannot be detected with reflection)</param>
+            <param name="wscArray">The objects defining the world state</param>
+            <param name="aiTurnTimeOutPeriod">Time out for a single turn</param>
+            <param name="aiGameTimeOutPeriod">Time out for a whole game</param>
+            <param name="maxTurns">Max turns per game</param>
+            <param name="maxOvertime">Max turns when a player is allowed to go over time</param>
+            <returns>The results of the game</returns>
+        </member>
+        <member name="M:GridWorld.RemoteAppDomainHandler.GameTurnThreadProcedure(System.Object)">
+            <summary>
+            This thread procedure performs the task of doing a turn
+            </summary>
+            <param name="stateInfo"></param>
+        </member>
+        <member name="M:GridWorld.RemoteAppDomainHandler.LoadWorldStateFromAssembly(System.String,System.Type)">
+            <summary>
+            Loads a world state from a path and a type
+            The type has to passed by the calling process as reflection cannot scan the loaded
+            assembly due to app domain restrictions
+            </summary>
+            <param name="fullname">The name of the DLL e.g. Infectious.dll, can prepend path if required, but the loader will scan the default apdomain directories only </param>
+            <param name="wstype">The type of the world state as deteched in the master domain</param>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.RemoteAppDomainHandler.LoadPlayerFromAssembly(System.String)">
+            <summary>
+            Creates a player with the first instance of the BasePlayer type
+            found in the named DLL
+            </summary>
+            <param name="fullname">Full path to the source assembly</param>
+            <returns>A player</returns>
+        </member>
+        <member name="M:GridWorld.RemoteAppDomainHandler.LoadPlayerRecord(System.String)">
+            <summary>
+            Get the details of a new AI DLL
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="P:GridWorld.RemoteAppDomainHandler.TurnCount">
+            <summary>
+            Turns played in a game (a bit un reliable due to speed games are played)
+            </summary>
+        </member>
+        <member name="T:GridWorld.GraphicsImages">
+            <summary>
+            Contains and allows access to the bitmap image files for background and sprites.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GraphicsImages.RemoveAddaiGfxLoaded(GridWorld.BasePlayer)">
+            <summary>
+            If the new BasePlayer is an AI and it is the only AI that has been loaded with that AIPath a new aiGFXLoaded struct will be loaded. 
+            If the new BasePlayer is not an AI then we check to see if it replaces an exist AI player, if it does, check to see if this AI player is the last AI player in the game to have the AIPath and remove the according aiGFXLoaded.
+            </summary>
+            <param name="newPlayer"></param>
+        </member>
+        <member name="M:GridWorld.GraphicsImages.#ctor(GridWorld.BasePlayer[],System.String)">
+            <summary>
+            GraphicsImages constructor
+            </summary>
+            <param name="Players">An array of valid players for this map.</param>
+            <param name="gp">A path string that holds the location to the graphics folder to use for this terrain.</param>
+        </member>
+        <member name="M:GridWorld.GraphicsImages.LoadAllDefaultBitmaps">
+            <summary>
+            Attempts to load in all the default Bitmaps for this game.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GraphicsImages.LoadAllAIBitmaps(GridWorld.BasePlayer[])">
+            <summary>
+            Attempts to load any Bitmaps for any AI players currently in the game.
+            </summary>
+            <param name="Players"></param>
+        </member>
+        <member name="M:GridWorld.GraphicsImages.LoadAllTerrainBitmaps">
+            <summary>
+            Attempts to load any Bitmaps that can be found in the GraphicsPath.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GraphicsImages.LoadBitmapFromFile(System.String,System.String)">
+            <summary>
+            Attempt to load a Bitmap from a file path.
+            </summary>
+            <param name="resourceName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.GraphicsImages.LoadDefaultBitmap(System.Int32,System.Int32)">
+            <summary>
+            Loads the default Bitmap for the specified player and ContentType from the game dll.
+            </summary>
+            <param name="PlayerId"></param>
+            <param name="contenttype"></param>
+        </member>
+        <member name="M:GridWorld.GraphicsImages.LoadPlayerDefaultGraphics(System.Int32)">
+            <summary>
+            Loads all default graphics for a given player.
+            </summary>
+            <param name="PlayerId"></param>
+        </member>
+        <member name="M:GridWorld.GraphicsImages.LoadPlayerTerrainGraphics(System.Int32)">
+            <summary>
+            Loads all graphics for a specified in the directory designated by the graphicsPath.  
+            If there is no graphicsPath or the graphicsPath directory doesnt exist then nothing is loaded.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GraphicsImages.SaveGraphics(System.String,System.Int32,System.Int32)">
+            <summary>
+            Saves all newly loaded graphics to the specified directory.
+            </summary>
+            <param name="dirPath">Path to the directory the files will be saved to.</param>
+        </member>
+        <member name="M:GridWorld.GraphicsImages.LoadAIPlayerGraphics(GridWorld.BasePlayer,System.Int32,System.Boolean)">
+            <summary>
+            Attempts to load any embedded resource .bmp files from a dll with a specific name
+            </summary>
+            <param name="p">The BasePlayer who is having graphics loaded</param>
+            <param name="k">The index of which graphics is being loaded</param>
+            <param name="check">a bool to see if a check is made to see wether custom graphics exist at all</param>
+        </member>
+        <member name="M:GridWorld.GraphicsImages.LoadAIGraphics(GridWorld.BasePlayer)">
+            <summary>
+            Trys to load an AIPlayers custom graphics.
+            </summary>
+        </member>
+        <member name="P:GridWorld.GraphicsImages.GraphicsPath">
+            <summary>
+            The path that holds graphics for this terrain.
+            </summary>
+        </member>
+        <member name="P:GridWorld.GraphicsImages.GraphicsToSave">
+            <summary>
+            Have any custom graphics been loaded that the user may wish to save?
+            </summary>
+        </member>
+        <member name="T:GridWorld.GraphicsDisplay">
+            <summary>
+            This class does all the rendering on the GridWorld client form.
+            It maintains a bitmap image of the currently rendered area (which
+            may change size in response to client window resize commands), 
+            and uses double buffering to ensure smooth transitions.
+            In order to decide which grid square (GridX, GridY) a pixel (PixX, PixY) in the 
+            gridWorldPictureBox is use (NB integer arithmetic so fractional parts ignored):
+            GridX = (PixX + displayWindowTopLeftPixelX) / (gridSquarePixelWidth + 2*gridLinePixelWidth);
+            For GridY use worldHeightInPixels = (worldState.gridHeightInSquares * (gridSquarePixelWidth + 2*gridLinePixelWidth));
+            GridY = (worldHeightInPixels - PixY - displayWindowTopLeftPixelY) / (gridSquarePixelHeight + 2*gridLinePixelHeight);
+            (NB Pixel coordinates have (0,0) at top left and GridWorld squares use Cartesian coordinates
+            with (0,0) in bottom left.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GraphicsDisplay.gridLinePixelWidth">
+            <summary>
+            All squares are surrounded by grid lines of width gridLinePixelWidth. In effect
+            this means the outermost squares have a boundary of size gridLinePixelWidth and all
+            inner boundaries wil be "doubled" and have width gridLinePixelWidth * 2.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GraphicsDisplay.Hscroll">
+            <summary>
+            Horizontal scroll bar
+            </summary>
+        </member>
+        <member name="F:GridWorld.GraphicsDisplay.Vscroll">
+            <summary>
+            Vertical scroll bar
+            </summary>
+        </member>
+        <member name="F:GridWorld.GraphicsDisplay.ZScroll">
+            <summary>
+            Zoom scroll bar
+            </summary>
+        </member>
+        <member name="F:GridWorld.GraphicsDisplay.screenPanel">
+            <summary>
+            The panel which is used to display the users view of the board
+            </summary>
+        </member>
+        <member name="F:GridWorld.GraphicsDisplay.worldState">
+            <summary>
+            The state of the world
+            </summary>
+        </member>
+        <member name="F:GridWorld.GraphicsDisplay.BitmapTextures">
+            <summary>
+            A collection of Bitmap textures which consist of all the sprites and textures for the game
+            </summary>
+        </member>
+        <member name="F:GridWorld.GraphicsDisplay.BackBuffer">
+            <summary>
+            The Bitmap object which represents the entire board
+            </summary>
+        </member>
+        <member name="F:GridWorld.GraphicsDisplay.BackBufferWidth">
+            <summary>
+            The width of the BackBuffer
+            </summary>
+        </member>
+        <member name="F:GridWorld.GraphicsDisplay.BackBufferHeight">
+            <summary>
+            The height of the BackBuffer
+            </summary>
+        </member>
+        <member name="F:GridWorld.GraphicsDisplay.IntermediateBuffer">
+            <summary>
+            The Bitmap object which is used to scale and center the users view of the board before rendering it tot he screen
+            </summary>
+        </member>
+        <member name="F:GridWorld.GraphicsDisplay.BBgfx">
+            <summary>
+            The Graphics object for the BackBuffer
+            </summary>
+        </member>
+        <member name="F:GridWorld.GraphicsDisplay.FBgfx">
+            <summary>
+            The Graphics object for the FrontBuffer
+            </summary>
+        </member>
+        <member name="F:GridWorld.GraphicsDisplay.IBgfx">
+            <summary>
+            The Graphics object for the IntermediateBuffer
+            </summary>
+        </member>
+        <member name="F:GridWorld.GraphicsDisplay.viewRect">
+            <summary>
+            A Rectangle representing the users 'view' of the board
+            </summary>
+        </member>
+        <member name="F:GridWorld.GraphicsDisplay.screenRect">
+            <summary>
+            A rectangle which represents the users view of the board centred on the screen
+            </summary>
+        </member>
+        <member name="F:GridWorld.GraphicsDisplay.centrePoint">
+            <summary>
+            A point representing the centre of the viewRect.  It is used to centre the view when the users zooms in or out.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GraphicsDisplay.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GraphicsDisplay.BackgroundColour">
+            <summary>
+            Used for a transparent, or semi transparent BG image, default colour is black.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GraphicsDisplay.#ctor(System.Int32,System.Drawing.Color,System.Boolean,System.Int32,System.Int32,System.Windows.Forms.Panel,GridWorld.IWorldState,System.Windows.Forms.HScrollBar,System.Windows.Forms.VScrollBar,System.Windows.Forms.HScrollBar,GridWorld.GraphicsImages,System.Int32)">
+            <summary>
+            Constructor for the GraphicsDisplay object. Used to Render game graphics
+            </summary>
+            <param name="glpw">Grid Line width in pixels</param>
+            <param name="glc">Grid Line Colour as a Color value</param>
+            <param name="gdl">Do you want to display grid lines?</param>
+            <param name="gspw">Width of a Grid Square in pixels</param>
+            <param name="gsph">Height of a Grid Square in pixels</param>
+            <param name="gwp">The panel object used as the display screen</param>
+            <param name="ws">The current Worldstate.  Used to create the turn 0 WorldStateChanges and render them at the beginning of the game.</param>
+            <param name="H">The Horizontal scrollbar</param>
+            <param name="V">The vertical scrollbar</param>
+            <param name="Z">The zoom scrollbar</param>
+            <param name="gs">The GraphicsImages object that contains the relevant sprites for this game</param>
+        </member>
+        <member name="M:GridWorld.GraphicsDisplay.InitPanelAndScrollBars(System.Windows.Forms.Panel,System.Windows.Forms.HScrollBar,System.Windows.Forms.VScrollBar,System.Windows.Forms.HScrollBar)">
+            <summary>
+            Initialise the scrollbars which control the graphics display and the panel which contains it.
+            </summary>
+            <param name="gwp">The panel object used as the display screen</param>
+            <param name="H">The Horizontal scrollbar</param>
+            <param name="V">The vertical scrollbar</param>
+            <param name="Z">The zoom scrollbar</param>
+        </member>
+        <member name="M:GridWorld.GraphicsDisplay.InitGraphicsDisplay(System.Int32,System.Drawing.Color,System.Boolean,System.Int32,System.Int32,GridWorld.IWorldState,GridWorld.GraphicsImages,System.Int32)">
+            <summary>
+            Constructor for the GraphicsDisplay object. Used to Render game graphics.
+            Does not set up the scroll bars or the panel which need to be set up from elsewhere
+            (i.e. does not attach to the form).
+            </summary>
+            <param name="glpw">Grid Line width in pixels</param>
+            <param name="glc">Grid Line Colour as a Color value</param>
+            <param name="gdl">Do you want to display grid lines</param>
+            <param name="gspw">Width of a Grid Square in pixels</param>
+            <param name="gsph">Height of a Grid Square in pixels</param>
+            <param name="ws">The current Worldstate.  Used to create the turn 0 WorldStateChanges and render them at the beginning of the game.</param>
+            <param name="gs">The GraphicsImages object that contains the relevant sprites for this game</param>
+        </member>
+        <member name="M:GridWorld.GraphicsDisplay.DrawBoard">
+            <summary>
+            Draw the background image and grid lines 
+            </summary>
+        </member>
+        <member name="M:GridWorld.GraphicsDisplay.Render">
+            <summary>
+            Called each turn to display the current state of the board
+            </summary>
+        </member>
+        <member name="M:GridWorld.GraphicsDisplay.UpdateGraphics(System.Collections.ArrayList)">
+            <summary>
+            Update the graphics bitmap in response to the ArrayList of WorldStateChange
+            objects given.
+            </summary>
+            <param name="worldstatechanges">An ArrayList of WorldStateChange objects</param>
+        </member>
+        <member name="M:GridWorld.GraphicsDisplay.CreateGrid(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Drawing.Color)">
+            <summary>
+            Draws the Entire grid on the back buffer. 
+            Once the grid is drawn, it should never need to be drawn again.
+            </summary>
+            <param name="WidthSquares">The width of the board in Grid Squares</param>
+            <param name="HeightSquares">The height of the board in Grid Squares</param>
+            <param name="WidthPixels">The width of a single Grid Square in pixels</param>
+            <param name="HeightPixels">The height of a single Grid Square in pixels</param>
+            <param name="LineColour">The colour of the grid lines</param>
+            <param name="LineWidth">The width of the grid lines in pixels</param>
+        </member>
+        <member name="M:GridWorld.GraphicsDisplay.getPlayerImages(System.Int32)">
+            <summary>
+            Returns the Bitmaps for this player in an ArrayList.
+            If there are no Bitmaps for that player it returns the default images for a player
+            </summary>
+        </member>
+        <member name="M:GridWorld.GraphicsDisplay.ViewMove(System.Int32,System.Int32)">
+            <summary>
+            Moves the view rectangle allowing the user to scroll left, right as well as up and down if the 'world' is bigger than the screen can accomidate.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GraphicsDisplay.ViewZoom(System.Int32)">
+            <summary>
+            Allows the user to zoom in or out.  
+            The X and Y values here are the width and height in pixels of the new view pane.
+            The results from this altered triangle and compressed or stretched (if need be) to fit the display window.
+            </summary>
+            <param name="zoomFactor">The new zoom factor that the user has selected. 0% is the size of one gridsquare. 100% is the full board on the screen.</param>
+        </member>
+        <member name="M:GridWorld.GraphicsDisplay.ViewResize(System.Drawing.Rectangle)">
+            <summary>
+            Resizes the Screen rectangle when the windows form screen is resized.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GraphicsDisplay.KeepAspectRatio">
+            <summary>
+            Deals with irregularly shaped boards or screen sizes...sort of, its not finished yet :S
+            </summary>
+        </member>
+        <member name="M:GridWorld.GraphicsDisplay.GridSquareLocation(System.Drawing.Point)">
+            <summary>
+            Translates the poition of the cursor on the screen to a grid square
+            </summary>
+            <param name="p">Position of the cursor over the screen</param>
+            <returns>A point representing the grid square</returns>
+        </member>
+        <member name="M:GridWorld.GraphicsDisplay.GetSprite(System.Int32,System.Int32)">
+            <summary>
+            Used to return the sprite that has the corresponding contentType
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:GridWorld.DockWindow">
+            <summary>
+            Summary description for DockWindow.
+            </summary>
+        </member>
+        <member name="F:GridWorld.DockWindow.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:GridWorld.DockWindow.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:GridWorld.DockWindow.UnDock(System.Windows.Forms.Control)">
+            <summary>
+            Used to add the dockable controls to this form.
+            </summary>
+            <param name="c"></param>
+        </member>
+        <member name="M:GridWorld.DockWindow.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:GridWorld.PlayerResult">
+            <summary>
+            Holds the result of one player in a single GridWorld game.
+            </summary>
+        </member>
+        <member name="M:GridWorld.PlayerResult.#ctor(System.Int32,System.DateTime,GridWorld.IWorldState,System.String,GridWorld.PlayerRecord,System.Double[],System.Boolean[])">
+            <summary>
+            Contruct a game result for this player
+            </summary>
+            <param name="gameid"></param>
+            <param name="gamefinishtime"></param>
+            <param name="ws"></param>
+            <param name="replayfilepath"></param>
+            <param name="player"></param>
+            <param name="cputime"></param>
+            <param name="disq"></param>
+        </member>
+        <member name="T:GridWorld.PlayerRecord">
+            <summary>
+            A class used by the server to manage the lists of
+            available players for leagues
+            </summary>
+        </member>
+        <member name="P:GridWorld.PlayerRecord.AIPath">
+            <summary>
+            Path to the file
+            </summary>
+        </member>
+        <member name="P:GridWorld.PlayerRecord.NumGamesOnCurrentTerrain">
+            <summary>
+            Games played on terrain
+            </summary>
+        </member>
+        <member name="P:GridWorld.PlayerRecord.RandomNumber">
+            <summary>
+            Number used to order on a terrain
+            </summary>
+        </member>
+        <member name="P:GridWorld.PlayerRecord.AssemblyDateTime">
+            <summary>
+            The timestamp of the assembly
+            </summary>
+        </member>
+        <member name="P:GridWorld.PlayerRecord.Name">
+            <summary>
+            Name of the AI
+            </summary>
+        </member>
+        <member name="P:GridWorld.PlayerRecord.LastServerGameEndDateTime">
+            <summary>
+            The timestamp of the last games
+            </summary>
+        </member>
+        <member name="P:GridWorld.PlayerRecord.Disqualified">
+            <summary>
+            Has player been naughty
+            </summary>
+        </member>
+        <member name="P:GridWorld.PlayerRecord.ID">
+            <summary>
+            A unique ID for a playerRecord
+            </summary>
+        </member>
+        <member name="P:GridWorld.PlayerRecord.UserName">
+            <summary>
+            Login name of the student
+            </summary>
+        </member>
+        <member name="P:GridWorld.PlayerRecord.CombinedName">
+            <summary>
+            Named used in results files
+            </summary>
+        </member>
+        <member name="T:GridWorld.Game">
+            <summary>
+            Game handles the running of a game from the point of view of the grid (i.e. without graphics).
+            It send out PlayerWorldState objects and receives PlayerCommands objects from players which
+            it uses to update the WorldState, by enforcing the game rules.
+            Since it uses AIPlayer.dll files, it needs to be secure against .dlls which contain malicious code,
+            or take too long.
+            </summary>
+        </member>
+        <member name="F:GridWorld.Game.worldState">
+            <summary>
+            The one and only state of the world.
+            </summary>
+        </member>
+        <member name="F:GridWorld.Game.players">
+            <summary>
+            The players (AI or interactive) in this game, in turn order.
+            </summary>
+        </member>
+        <member name="F:GridWorld.Game.AITimePerTurn">
+            <summary>
+            The time (in seconds) that an AI player has to execute a single move.
+            Set it equal to AITimePerGame if there is no per turn limit.
+            </summary>
+        </member>
+        <member name="F:GridWorld.Game.AITimePerGame">
+            <summary>
+            The time (in seconds) that an AI player has to execute all of its moves in a game.
+            </summary>
+        </member>
+        <member name="F:GridWorld.Game.MaxNumOverTimeAITurns">
+            <summary>
+            The maximum number of turns that an AI player is allowed to go over the turn limit before being disqualified.
+            </summary>
+        </member>
+        <member name="F:GridWorld.Game.MaxNumTurns">
+            <summary>
+            The maximum number of turns in a game before it is declared a draw.
+            </summary>
+        </member>
+        <member name="M:GridWorld.Game.GetPlayerTrace(System.Int32)">
+            <summary>
+            Gets the StringBuilder which represents the players trace.
+            </summary>
+            <param name="playerId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.Game.#ctor(GridWorld.BasePlayer[],System.Int32,System.Int32,System.Collections.ArrayList,System.String,GridWorld.IWorldState)">
+            <summary>
+            Initialise a game and the worldstate for the game
+            </summary>
+            <param name="p">Players</param>
+            <param name="GridWidth">Width of the world in GridSquares</param>
+            <param name="GridHeight">Height of the world in GridSquares</param>
+        </member>
+        <member name="M:GridWorld.Game.RewindToStart">
+            <summary>
+            Rewind the current game back to the starting terrain and turn 1.
+            </summary>
+        </member>
+        <member name="M:GridWorld.Game.RewindToStartOfReplayFile">
+            <summary>
+            Rewind the current game back to the starting terrain and turn 1.
+            </summary>
+        </member>
+        <member name="M:GridWorld.Game.DoReplayTurn">
+            <summary>
+            Do current turn by reading world state changes from the replay file.
+            Call AI if appropriate to get trace info or debug but ignore its output.
+            </summary>
+        </member>
+        <member name="M:GridWorld.Game.PassTurn">
+            <summary>
+            Do nothing on the current turn (but check for game over on Maximum Turns exceeded).
+            </summary>
+        </member>
+        <member name="M:GridWorld.Game.DoTurn">
+            <summary>
+            Do current turn by getting a new move from the player or AI.
+            </summary>
+        </member>
+        <member name="M:GridWorld.Game.UpdateWorldState(GridWorld.BasePlayer,GridWorld.ICommand)">
+            <summary>
+            Update the world state based on the player commands sent.
+            Needs to robustly handle illegal commands.
+            </summary>
+            <param name="c"></param>
+        </member>
+        <member name="M:GridWorld.Game.DoPlayerTurn(GridWorld.BasePlayer)">
+            <summary>
+            Call this player's method for getting commands and yupdate the world state according to
+            those commands. Returns an ArrayList of WorldStateChange objects.
+            </summary>
+            <param name="p"></param>
+        </member>
+        <member name="M:GridWorld.Game.GetGameResult">
+            <summary>
+            Return the result of a finished game, or the current score of a running game. TODO
+            </summary>
+        </member>
+        <member name="P:GridWorld.Game.ActivePlayer">
+            <summary>
+            The active player in the current game.
+            </summary>
+        </member>
+        <member name="T:GridWorld.GameServer">
+            <summary>
+            The GameServer uses 
+            - terrains from the specified directory and
+            - AI players from a specified directory
+            and runs leagues, sending results and replay files to a specified directory.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameServer.fileWatcher">
+            <summary>
+            Watches the player directory
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameServer.endServer">
+            <summary>
+            Flag to abort the server
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameServer.loader">
+            <summary>
+            The proxy for the current game
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameServer.uploadPlayerEvent">
+            <summary>
+            Semaphore for making sure we onlu update one player at a time
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameServer.theGridWorldForm">
+            <summary>
+            The GridWorld form that displays server output.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameServer.gameID">
+            <summary>
+            The ID of the game currently being played
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameServer.aIPlayerDirectoryPath">
+            <summary>
+            The path for directory with all the AI players in the league
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameServer.individualAIPath">
+            <summary>
+            The path for a single AI player that will play all others (if this
+            option is selected).
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameServer.terrainDirectoryPath">
+            <summary>
+            The path to the directory for all the terrains in the league.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameServer.resultsDirectoryPath">
+            <summary>
+            The path to the directory to which results and replay files are sent.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameServer.isAllPlayAllLeague">
+            <summary>
+            The type of league: all play all or one plays rest.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameServer.repeatForever">
+            <summary>
+            Should the league repeat forever, or go once through all terrains/players and then stop?
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameServer.useTerrainOverrides">
+            <summary>
+            Should the terrain overrides for maximum number of turns, AI time per turn,
+            number of overtime turns allowed and AI time per game be used or should the values from the
+            terrain be used?
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameServer.terrainOverrideMaxNumTurns">
+            <summary>
+            The maximum number of turns before a game is declared a draw.
+            Only used if useTerrainOverrides == true.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameServer.terrainOverrideAITimePerTurn">
+            <summary>
+            The AI time per turn in seconds.
+            Only used if useTerrainOverrides == true.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameServer.terrainOverrideNumOvertimeTurnsAllowed">
+            <summary>
+            The maximum number of overtime turns allowed before a player is disqualified.
+            Only used if useTerrainOverrides == true.		
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameServer.terrainOverrideAITimePerGame">
+            <summary>
+            The maximum amount of AI time per game.
+            Only used if useTerrainOverrides == true.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameServer.individualAIPlayer">
+            <summary>
+            The individual AI player in a "one plays the rest" league.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameServer.allPlayers">
+            <summary>
+            All the AI players currently known to the GridWorld server.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameServer.theServerThread">
+            <summary>
+            The one and only thread in which the game server runs.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameServer.overwriteResult">
+            <summary>
+            Should results be overwriten
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameServer.ServerAbortRequested">
+            <summary>
+            Flag set to true when the user requests an abort of the server by pressing the appropriate interface button.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameServer.#ctor(GridWorld.GridWorldForm,System.String,System.String,System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.Int32,System.Double,System.Int32,System.Double,System.Boolean)">
+            <summary>
+            Create a game server using the specified settings.
+            </summary>
+            <param name="aipath">The path for all the AI players in the league</param>
+            <param name="individualaipath">The path for a single AI player that will play all others</param>
+            <param name="terrainpath">The path for all the terrains in the league</param>
+            <param name="resultspath">The path to which results and replay files are sent</param>
+            <param name="isallplayall">The type of league: all play all or one plays rest.</param>
+            <param name="repeatforever">Should the league repeat forever, or go once through all terrains/players and then stop?</param>
+            <param name="useterrainoverrides">Should the override terrain values for maximum number of turns, AI time per turn, etc.</param>
+            <param name="overridemaxturns">The maximum number of turns before a game is declared a draw (if terrain values are overridden).</param>
+            <param name="overrideaitimeperturn">The AI time per turn in seconds (if terrain values are overridden).</param>
+            <param name="overridemaxovertimeturns">The maximum number of overtime turns allowed before a player is disqualified (if terrain values are overridden).</param>
+            <param name="overrideaitimepergame">The maximum amount of AI time per game (if terrain values are overridden).</param>
+        </member>
+        <member name="M:GridWorld.GameServer.AbortServer">
+            <summary>
+            Kills the running server process
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameServer.LoadAllAIPLayers">
+            <summary>
+            Load the individual AI player from individualAIPath and all AI players from aIPlayerPath.
+            TODO this needs to be made robust and needs to be able to check for new DLLs on the server.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameServer.playerRand">
+            <summary>
+            Used to randomise the player ordering.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameServer.RandomisePlayerOrder">
+            <summary>
+            Randomise the game end times for each player that has played a game on the previous terrain so that
+            1. Players who have not played before get top priority
+            2. Players that played only one game in the past round get high priority.
+            Within these strata players are arranged randomly
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameServer.changeToAIPlayers(System.Object,System.IO.FileSystemEventArgs)">
+            <summary>
+            Event handler for changes in the student AIs
+            </summary>
+            <param name="source"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:GridWorld.GameServer.PlayerOrderToString">
+            <summary>
+            Output the player sort order for debuggin purposes.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.GameServer.StartServer">
+            <summary>
+            Start the server with the chosen AI, terrain and result paths.
+            TODO currently does nothing with the result of each game (Nick is writing result load/save code).
+            TODO currently does nothin with time.
+            TODO Need to check for new AI players after every game.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameServer.GameTurnCountMonitor(System.Object)">
+            <summary>
+            Monitor to give an indication of the turns in the current game
+            </summary>
+            <param name="loader"></param>
+        </member>
+        <member name="M:GridWorld.GameServer.SaveGameResultsFile(System.Collections.ArrayList,System.String)">
+            <summary>
+            Save the results of the game as an XML file. Uses GameManager.GameSpecs.TheWebServerResultsFormat.ThePlayerResultFields
+            and so will save the results of any game according to the format specified.
+            </summary>
+            <param name="pres">An ArrayLIst of PlayerResult objects</param>
+            <param name="resultpath">The path to the directory where the resulst should be saved.</param>
+        </member>
+        <member name="P:GridWorld.GameServer.IsRunning">
+            <summary>
+            Checks if the server is currently running
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:GridWorld.GameServer.PlayerOrder">
+            <summary>
+            Used to order the players for a game. Player x receives higher priority than player y (return -1) if player x has
+            1. Played less games on this terrain than player y.
+            2. PLayed the same number of games but it is longer since player x played his last game on the server.
+            3. PLayed the same number of games and waited for exactly the same time but his player is more recently uploaded.
+            </summary>
+        </member>
+        <member name="T:GridWorld.LeaderBoardItem">
+            <summary>
+            Used to hold the in memory leaderboard
+            </summary>
+        </member>
+        <member name="M:GridWorld.LeaderBoardItem.GetColumnData(System.Int32)">
+            <summary>
+            Returns the data for the player column
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.LeaderBoardItem.#ctor(System.Collections.ArrayList,GridWorld.WebServerResultsFormat)">
+            <summary>
+            Adds a new player record
+            </summary>
+            <param name="res">First set of result</param>
+            <param name="format">Display results settings</param>
+        </member>
+        <member name="M:GridWorld.LeaderBoardItem.AddResult(System.Collections.ArrayList)">
+            <summary>
+            Adds a new player game to the leaderboard
+            </summary>
+            <param name="res"></param>
+        </member>
+        <member name="M:GridWorld.LeaderBoardItem.ToString">
+            <summary>
+            Dumps a summary of class
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:GridWorld.LeaderBoardItem.ColumnCount">
+            <summary>
+            Returns the number of columns
+            </summary>
+        </member>
+        <member name="T:GridWorld.GameForFastTesting">
+            <summary>
+            This is a class that allows you to quickly run any GridWorld game outside the GirdWorld client and server.
+            Thia might be very useful for parameter tuning. You need to create a new project (for example a Windows Application 
+            or a Windows Console Application) which references GameInterface.dll, GridWorldEngine.dll, the .dll file for
+            the GridWorld game you want to use and any .dll files for players that you want to test.
+              You can modify AI players between games. 
+              The format that the results are sent out in depends on the game. The names of the columns for the result fields
+            can be obtained via a call to GetPlayerResultFields().
+              The AI players must be fully working, or they will crash the PlayeGame() function.
+              CPU time is not limited for each player.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameForFastTesting.theGameSpecifics">
+            <summary>
+            The GameSpecifics which are used to tell this calss which game is being played
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameForFastTesting.theGame">
+            <summary>
+            The copy of the Game class that we will actually use to run the game.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameForFastTesting.terrainWorldStateChanges">
+            <summary>
+            Keep hold of the terrain world state changes so we can rewind quickly without referring again to the file
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameForFastTesting.terrainName">
+            <summary>
+            Keep hold of the terrain name so we can rewind quickly without referring again to the file
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameForFastTesting.#ctor(GridWorld.IGameSpecifics)">
+            <summary>
+            Create a game shell for fast testing of fully working AI players. Send it a copy of the GameSpecifics object
+            from the .dll file of the game to be played so it knows which game is to be played. The usual syntax will be
+            GameForFastTesting game = new GameForFastTesting(new GameSpecifics());
+            Need to call LoadTerrain before any games can be played.
+            </summary>
+            <param name="gamespecs">A GameSpecifics object from the game to be played.</param>
+        </member>
+        <member name="M:GridWorld.GameForFastTesting.LoadTerrain(System.String)">
+            <summary>
+            Load a terrain from the file whose path is terrainpath. No error trapping is done, and this will fail if the
+            path is incorrect, the file is not available or if the file is read only.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameForFastTesting.PlayGame(GridWorld.BasePlayer[])">
+            <summary>
+            Play a game on the current terrain using the array of players given.
+            Runs in the main thread and does none of the checking associated with a GridWorld client or server game.
+            Players do not have CPU time limits.
+            </summary>
+            <param name="players">The AI players</param>
+            <returns>A List of ArrayLists of player results (double or string). See GetPlayerResultFields() for the column titles of each field.</returns>
+        </member>
+        <member name="M:GridWorld.GameForFastTesting.PlayGameAndGetReplayFile(GridWorld.BasePlayer[],System.String)">
+            <summary>
+            Play a game on the current terrain using the given players, and save the replay file using the path given (which must be a legal, writeable path).
+            Runs in the main thread and does none of the checking associated with a client or server game.
+            Players do not have CPU time limits.
+            </summary>
+            <param name="players">The AI players</param>
+            <param name="replayfilepath">The path for the replay file</param>
+            <returns>A List of ArrayLists of player results (double or string). See GetPlayerResultFields() for the column titles of each field.</returns>
+        </member>
+        <member name="M:GridWorld.GameForFastTesting.GetPlayerResultFields">
+            <summary>
+            The column heading for each player result field for each game.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameForFastTesting.ResultToString(System.Collections.Generic.List{System.Collections.ArrayList})">
+            <summary>
+            Display the result of a game in a readable string format. Note that the headings will be different for each GridWorld game.
+            </summary>
+        </member>
+        <member name="T:GridWorld.EndOfGameException">
+            <summary>
+            The exception thrown by the game when a game is ended on the server
+            
+            Author: Richard Fennell
+            </summary>
+        </member>
+        <member name="M:GridWorld.EndOfGameException.#ctor">
+            <summary>
+            Generic exception used when a test fails
+            </summary>
+        </member>
+        <member name="M:GridWorld.EndOfGameException.#ctor(System.String)">
+            <summary>
+            Generic exception used when a test fails
+            </summary>
+            <param name="message">A text message</param>
+        </member>
+        <member name="M:GridWorld.EndOfGameException.#ctor(System.String,GridWorld.BasePlayer)">
+            <summary>
+            Generic exception used when a test fails
+            </summary>
+            <param name="message">A text message</param>
+            <param name="whoIsAtFault">A text message</param>
+        </member>
+        <member name="M:GridWorld.EndOfGameException.#ctor(System.String,System.Exception)">
+            <summary>
+            Generic exception used when a test fails
+            </summary>
+            <param name="message">A text message</param>
+            <param name="ex">Inner exception</param>
+        </member>
+        <member name="M:GridWorld.EndOfGameException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Generic exception used when a test fails
+            </summary>
+            <param name="info"></param>
+            <param name="context"></param>
+        </member>
+        <member name="T:GridWorld.ReplayTerrainXMLHandler">
+            <summary>
+            Summary description for ReplayTerrainXMLHandler.
+            </summary>
+        </member>
+        <member name="M:GridWorld.ReplayTerrainXMLHandler.LoadXMLReplayOrTerrain(System.IO.Stream)">
+            <summary>
+            Loads all of the values in the xmlfile into temporary variables within this.
+            </summary>
+            <param name="xmlfile">A System.IO.Stream object that points to an XML file</param>
+        </member>
+        <member name="M:GridWorld.ReplayTerrainXMLHandler.CreateXmlDocument">
+            <summary>
+            Creates an XmlDocument for the current board state.  Fills it the world data and player information.  It does not input the WorldStateChanges
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.ReplayTerrainXMLHandler.SavePosition(System.String,System.Boolean,GridWorld.IWorldState)">
+            <summary>
+            Save position as a replay or terrain file (depending on whether isreplay is true)
+            </summary>
+            <param name="isreplay">Is this a replay file or a terrain file?</param>
+            <param name="ws">The World state to use (client or server)</param>
+        </member>
+        <member name="M:GridWorld.ReplayTerrainXMLHandler.SaveResults(System.Collections.ArrayList,System.String)">
+            <summary>
+            Save the results of the game as an XML file. Uses GameManager.GameSpecs.TheWebServerResultsFormat.ThePlayerResultFields
+            and so will save the results of any game according to the format specified.
+            </summary>
+            <param name="pres">An ArrayLIst of PlayerResult objects</param>
+            <param name="resultpath">The path to the directory where the resulst should be saved.</param>
+        </member>
+        <member name="M:GridWorld.ReplayTerrainXMLHandler.SaveReplaywithResults(System.String,GridWorld.IWorldState,System.Collections.ArrayList)">
+            <summary>
+            This method is used to create a replay file that has the results appended onto the end of it
+            </summary>
+            <param name="XmlFilePath">Location that the file is going to be saved to.</param>
+            <param name="ws">The Worldstate.</param>
+            <param name="pres">An ArrayList of PlayerResults.</param>
+        </member>
+        <member name="M:GridWorld.ReplayTerrainXMLHandler.GetXMLNodeForWorldStateChange(GridWorld.WorldStateChange,System.Xml.XmlDocument)">
+            <summary>
+            Convert a WorldStateChange into an XmlNode in doc.
+            </summary>
+            <param name="wsc"></param>
+            <param name="doc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.ReplayTerrainXMLHandler.CreateResultXml(System.Xml.XmlDocument,System.Collections.ArrayList)">
+            <summary>
+            Creates and returns an XMLElement which will be a valid XML fragment for a game's results
+            </summary>
+            <param name="doc"></param>
+            <param name="pres"></param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:GridWorld.ReplayTerrainXMLHandler.SaveGameSpecification(GridWorld.WebServerResultsFormat,System.String)" -->
+    </members>
+</doc>

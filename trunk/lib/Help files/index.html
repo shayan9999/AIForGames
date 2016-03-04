@@ -1,0 +1,233 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+	<HEAD>
+		<TITLE>Gridworld Help Documentation</TITLE>
+		<style> <!-- -->
+	</style>
+	</HEAD>
+	<BODY>
+		<h1 align="center">Welcome to Gridworld - Snails</h1>
+		<IMG src="GridWorldHelp01.bmp">
+		<H3>Snails! - rules of the game.</H3>
+		<p><strong>1.</strong> The object of the game is to occupy (leave your Slime in) 
+			more of the GridSquares than all of your opponents when the game ends.</p>
+		<p><strong>2.</strong> Players take turns to move. A player turn consists of moving 
+			a Snail horizontally or vertically to an adjacent empty square.</p>
+		<p><strong>3.</strong> Moving into an empty GridSquare leaves your previously 
+			occupied GridSquare with a trail of your slime. SPLAT!</p>
+		<p><strong>4.</strong> Not only can you move into empty squares, but you can move 
+			back onto your own Trail of Slime. This has a disadvantage, however; your Slime 
+			is slippy, and any move back onto your Slime will send you sliding to the 
+			furthest point on that Trail in the direction you moved (fig. 1). This may be 
+			useful for getting some missed GridSquares, or ones that were previously 
+			unavailable.</p>
+		<IMG src="GridWorldHelp02.bmp">
+		<p><strong>5.</strong> You can not, however, move onto your opponent's Trail of 
+			Slime. As the colours suggest your opponent's Trails are toxic, making them 
+			impassable. Your opponent, also cannot move into a GridSquare occupied by your 
+			Trail. Use this to your advantage!!</p>
+		<p><strong>6.</strong> If you make 10 moves in a row without capturing a new empty 
+			GridSquare, (i.e. just keep sliding around on your slime for 10 moves) then 
+			your game ends, but your opponent can still move, until his/her 10 moves are 
+			up.</p>
+		<p><strong>7.</strong> When both players have finished moving, or cannot capture 
+			any more GridSquares, the game is over and the player with the highest score 
+			(most GridSquares captured) is the winner.</p>
+		<H3>File Menu - Playing and Replaying a game.</H3>
+		The file menu can be used to load or save a game as either a .terrain file or a 
+		.replay file. A .terrain file is simply a&nbsp;board position. A .replay file 
+		contains the initial board position and all moves played so far.
+		<h4>Play and Replay mode</h4>
+		<P>When a terrain file is loaded the user is said to be in 'Play mode' and when a 
+			replay file is loaded the user is said to be in 'Replay mode'. If a user is in 
+			Replay mode he can choose to swap over to 'Play mode' starting from the current 
+			position (and discarding all turn information except for the current board 
+			state). There is no way to change from&nbsp;'Play mode' to&nbsp;to Replay mode 
+			(apart from saving a repay file). The difference between these two modes is 
+			that in play mode new turns are expected from human and AI players, but in 
+			replay mode you simply step forwards and backwards through a replay file. 
+			Stepping backwards in play mode causes the currently turn to be 'destroyed' 
+			effectively undoing the turn (which .
+		</P>
+		<h4>1. Screen</h4>
+		This is where the game board and player pieces are displayed.&nbsp;You 
+		can&nbsp;zoom and&nbsp;move around the board using the scroll bars. Also if the 
+		user hovers over a grid square on the screen, they will get a small tooltip pop 
+		up which will relate information about the location and contents of that 
+		square. To make a move click your Snail pieces and drag it to an adjacent empty 
+		square; if the move is to an adjacent Slime square, then your Snail will 
+		automatically slide to the end of the Trail.
+		<h4>2. Game Speed</h4>
+		With this bar you can alter the speed at which AI players will take turns, 
+		effectively slowing the game down so that you can see what is going on.
+		<h4>3. Zoom Bar</h4>
+		You can zoom into the board for a closer look if you need to by dragging the 
+		slider on this bar.
+		<h4>4. Game Controls</h4>
+		These can be used to control the state of the game as well as skip ahead or 
+		backwards. They are similar in play mode and replay mode:
+		<p><IMG height="23" src="Button00.jpg" width="39"> <strong>Pass:</strong> Pass can 
+			be used by a human player to skip his go. Play mode only.<br>
+			<IMG height="23" src="Button01.jpg" width="23"> <strong>Play:</strong> Starts 
+			the game or continues it if it is currently paused.<br>
+			<IMG height="23" src="Button02.jpg" width="23"> <strong>Step back:</strong> This 
+			can be used to step backwards one turn at a time. This control has slightly 
+			different behaviour&nbsp;in play&nbsp;or replay mode. When a user is in play 
+			mode clicking this button will destroy all information for the&nbsp;previous 
+			turn (and step back). When the user is in replay mode this button will simply 
+			take the user to the previous turn, and no turn information is lost.<br>
+			<IMG height="23" src="Button03.jpg" width="23"> <strong>Pause:</strong> This 
+			pauses the game (!).
+			<br>
+			<IMG height="23" src="Button04.jpg" width="23"> <strong>Step Forward:</strong> In 
+			play mode, this causes the next AI player to take a turn. If the next player is 
+			human then the button has no effect. In replay mode this can be used to step 
+			forward to the next turn. When the last turn of the replay file is displayed 
+			the turn box (5 above) will display "Game Over".<br>
+			<IMG height="23" src="Button05.jpg" width="23"> <strong>Record:</strong> This 
+			button does not do anything when you click on it, but it contains a context 
+			menu which you can access by right clicking on the button. In play mode the 
+			context menu has 2 options, 'Save as Terrain' and 'Save as Replay', in replay 
+			mode there is only the 'Save as Terrain' option.<br>
+			<IMG height="23" src="Button06.jpg" width="23"> <strong>Rewind:</strong> Rewind 
+			is used in similar ways in both play mode and replay mode, it rewinds the game 
+			to the first turn, but in the case of play mode it destroys all the turns that 
+			have been made in this game, whereas in replay mode it simply puts the users at 
+			turn 1 without destroying any turn information.
+			<h4>5. Turn Counter</h4>
+			This will simply display the current turn. If no player can move in the current 
+			position (play mode) or the end of a replay file is reached (replay mode) it 
+			displays "Game Over".
+			<h4>6. Game Mode</h4>
+			This simply displays the current game mode. In addition if you are in replay 
+			mode you can right click on the red box and choose to enter play mode.
+			<h4>7. Player List</h4>
+		<P>This displays a scrollable list of all players in the current game and some 
+			information about them. This information is their Player ID and name, what type 
+			of player they are (Human or AI) and their current score.
+			<br>
+			If the user left-clicks on the player button with that players graphic on, they 
+			will bring up that players trace (in the case of a human player there is no 
+			trace information).
+			<br>
+			Right clicking on the button will bring up a menu which will alow users to load 
+			either a user-created&nbsp;AI player, the default AI player or a human 
+			controlled player. If a human player is loaded, users may right click on the 
+			human players name and enter a new name for that player.
+		</P>
+		<h4>8. Trace Window and 9 Trace Window Player Indicator</h4>
+		This window will display the trace ouput for the currently selected player. The 
+		players icon will appear in the square marked with an 9 and his trace will 
+		appear in the text window below. The text window is fully scrollable and it can 
+		be docked and undocked from the main window of the form into its own separate 
+		floating window by right clicking on the Trace/Chat tabs and selecting 
+		Dock/Undock. Once the window is undocked it can be moved and resized to the 
+		user's convienience. While undocked the window is redocked by closing it.
+		<h3>10. Terrain Editor</h3>
+		<IMG height="512" src="TerrainEditor.bmp" width="280"><br>
+		Entering this tab for the first time will reveal a series of disabled buttons 
+		and controls. These controls, once activated (by pressing the "Enable Terrain 
+		Editing" button)&nbsp;can be used to modify the board and pieces on the board. 
+		Most of the controls are fairly self-explanatory - they are briefly described 
+		below. Once you have finished changing the values of the controls, hit the 
+		button labeled 'Update Terrain Values' and the new board will appear on screen 
+		with no player pieces on.
+		<BR>
+		<P><strong>a. </strong>To enter terrain editing mode you must click on this button. 
+			Be very careful when you do this, as clicking this button will cause all the 
+			previous turn information to be deleted for the current game, although the 
+			current board position is retained.<BR>
+			<strong>b. </strong>From this drop down menu you can select a set of default 
+			values for the board such as width and height, they can either be for&nbsp;the 
+			current board or the default board or (if you have alter any of the values in 
+			the controls) you can use custom terrain values. When you select an option from 
+			the drop down, fills in values for the controls in the terrain editor.<BR>
+			<strong>c. </strong>This is where you can give your map a name. It will appear 
+			in the title bar when you load it in.<BR>
+			<strong>d. </strong>This control lets you set the number of player that are 
+			allowed on a board.<BR>
+			<strong>e. </strong>This sets the width of the board in grid squares. The 
+			current maximum is 200.<BR>
+			<strong>f. </strong>This sets the height of the board in grid squares. The 
+			current maximum is 200.<BR>
+			<strong>g. </strong>This sets the width of an individual gridsquare in pixels. 
+			The current maximum is 200.<BR>
+			<strong>h. </strong>This sets the height of an individual gridsquare in pixels. 
+			The current maximum is 200.
+			<BR>
+			If a very large grid size and a large grid square size is chosen, you will be 
+			warned of the possibility of a system slowdown or crash - but all reasonable 
+			sizes, up to around 200x200 with 20x20 pixel squares, should work on a powerful 
+			PC.<BR>
+			<strong>i. </strong>The grid lines separate all the squares so that individual 
+			grid squares can be seen, this controls sets the thickness of those lines. If a 
+			thickness of zero is chosen then the gridlines will not be displayed.<BR>
+			<strong>j. </strong>This sets the colour for the grid lines. Just hit browse 
+			and a colour picker will appear, select the colour from that.<BR>
+			<strong>k. </strong>This control allows the user to select a directory where 
+			the user has created custom graphics. Once the path is set from the browse 
+			button, the new graphics will be loaded into the game. Custom graphics must 
+			have exactly the correct names. For Infectious! these are: 1ActiveColony.bmp, 
+			1PassiveColony.bmp, 2ActiveColony.bmp, 2PassiveColony.bmp, ...&nbsp;for player 
+			pieces; Impassable.bmp for impassable squares; and Background.bmp for the large 
+			background image.<BR>
+			<strong>l. </strong>This is the update terrain values button, once you press 
+			this a new empty board will be created and all player pieces that are on the 
+			current board will be discarded.<BR>
+			<strong>m. </strong>This button allows the user to save any 
+			graphics&nbsp;currently loaded for player or terrain pieces. This directory 
+			will become the graphics path for this terrain.<br>
+			<strong>n. </strong>This control allows the user to save this terrain file as 
+			usual.<br>
+			<strong>o. </strong>These are the Terrain and Player piece buttons. When a user 
+			clicks on these buttons, his cursor will change to reflect the piece he has 
+			picked up. Now when he/she clicks on a grid square the player piece will be 
+			placed in that grid square. There is a tooltip for each button, to let the user 
+			know what each button is for (this can be viewed by hovering the mouse over the 
+			button for a few seconds. To erase the contents of a grid square and set it to 
+			Empty, use the Empty grid square button (this is marked with a red circle with 
+			a line through it). Right click on a terrain piece to get a context menu which 
+			allows the graphics sprite to be changed or reset.<BR>
+		</P>
+		<P><STRONG>Terrain Pieces for Snails:</STRONG><BR>
+			<BR>
+			<img src="Impassable.bmp"> <strong>Impassable 
+				Square (static)</strong>
+			<BR>
+			<img src="Empty.bmp"> <strong>Empty Square</strong>
+			<BR>
+			<BR>
+			<STRONG>Player Pieces for Snails:</STRONG>
+			<BR>
+			<img src="1Snail.bmp"> <strong>Snail (Player Controlled)</strong>
+			<BR>
+			<img src="1Trail.bmp"> <strong>Trail of Snail Slime (Static)</strong>
+			<BR>
+		</P>
+		<P>&nbsp;</P>
+		<h4>
+			How to use the Terrain Editor</h4>
+		<ul>
+			<li>
+			The terrain editor is very simple to use. After enabling controls you can 
+			change the size and shape of the board and some of its other parameters like 
+			the name of your terrain or the number of players.
+			<li>
+			Once you have done this, click on update terrain. When you do this, all the 
+			currently player pieces will disappear from the board and your new board will 
+			appear, without any player pieces on it.
+			<li>
+			Now you can load in new graphics for each player by right clicking on the 
+			buttons underneath and selecting 'Load newSprite'
+			<li>
+			When you have created a satisfactory new board, you can begin to add new player 
+			pieces to it. You can do this by clicking on a Player Piece Button in the 
+			terrain editor, this will cause your cursor to change to resemble the piece you 
+			have picked up. Now you can click on any gridsquare on the board and add the 
+			player piece to that square.
+			<li>
+				Once you have done this, you can save the terrain and/or simply return to 
+				Play/Replay tab and start playing a game normaly.</li>
+		</ul>
+	</BODY>
+</HTML>

@@ -1,0 +1,909 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Snails</name>
+    </assembly>
+    <members>
+        <member name="T:GridWorld.InputEventHandlers">
+            <summary>
+            Has code to deal with events:
+            1. Start of an interactive player turn
+            2. MouseDown.
+            3. MouseUp.
+            4. KeyDown.
+            5. KeyUp.
+            6. Pass Turn button in form clicked.
+            Snails! only uses 2 and 3.
+            Has a handle for the GridWorldForm and for the WorldState
+            </summary>
+        </member>
+        <member name="F:GridWorld.InputEventHandlers.gameGraphics">
+            <summary>
+            The game graphics for this game - useful for getting images for mouse pointers etc.
+            </summary>
+        </member>
+        <member name="F:GridWorld.InputEventHandlers.worldState">
+            <summary>
+            Thw WorldState for the client game.
+            </summary>
+        </member>
+        <member name="F:GridWorld.InputEventHandlers.SnailLocation">
+            <summary>
+            This is the location of the last Snail to recieve a MouseDown event from a user.
+            </summary>
+        </member>
+        <member name="F:GridWorld.InputEventHandlers.LastTerrainButtonIndex">
+            <summary>
+            The last ContentType button to be pushed in the terrain editor.
+            </summary>
+        </member>
+        <member name="M:GridWorld.InputEventHandlers.GetToolTipTextName(System.Int32)">
+            <summary>
+            The contents of a square, one of {Empty, Impassable, Trail, Snail}.
+            Used for tooltip names on buttons.
+            </summary>
+        </member>
+        <member name="M:GridWorld.InputEventHandlers.TerrainButtonPressEventHandler(System.Int32)">
+            <summary>
+            This function is called when a (terrain type) button is pressed in the terrain editor.
+            </summary>
+            <param name="terrainbuttonindex">The index of the button pressed (-1 = "No button"</param>
+        </member>
+        <member name="M:GridWorld.InputEventHandlers.MouseDownPlayModeEventHandler(System.Windows.Forms.MouseEventArgs,System.Drawing.Point,System.Windows.Forms.Form)">
+            <summary>
+            This fucntion is called when the app detects a MouseDownEvent in the board panel, while the game is in Play Mode.
+            </summary>
+            <param name="e"></param>
+            <param name="gridSquareLoc">This is the grid square that the user clicks on.</param>
+            <param name="f">The App Form</param>
+            <returns>An ArrayList of worlstate changes that can be used to update the screen</returns>
+        </member>
+        <member name="M:GridWorld.InputEventHandlers.MouseDownEditModeEventHandler(System.Windows.Forms.MouseEventArgs,System.Drawing.Point,System.Windows.Forms.Form)">
+            <summary>
+            This function is called when the app detects a MouseDownEvent, while the game is in Edit Mode.
+            </summary>
+            <param name="e"></param>
+            <param name="gridSquareLoc"></param>
+            <param name="f"></param>
+            <returns>An ArrayList of worlstate changes that can be used to update the screen</returns>
+        </member>
+        <member name="M:GridWorld.InputEventHandlers.MouseUpPlayModeEventHandler(System.Windows.Forms.MouseEventArgs,System.Drawing.Point,System.Windows.Forms.Form)">
+            <summary>
+            This function is called when the app detects a MouseUpEvent in play mode.
+            </summary>
+            <param name="e"></param>
+            <param name="gridSquareLoc"></param>
+            <param name="f"></param>
+            <returns>An ArrayList of worlstate changes that can be used to update the screen</returns>
+        </member>
+        <member name="M:GridWorld.InputEventHandlers.MouseUpEditModeEventHandler(System.Windows.Forms.MouseEventArgs,System.Drawing.Point,System.Windows.Forms.Form)">
+            <summary>
+            This function is called when the app detects a MouseUpEvent in EditMode
+            </summary>
+            <param name="e"></param>
+            <param name="gridSquareLoc"></param>
+            <param name="f"></param>
+            <returns>An ArrayList of worlstate changes that can be used to update the screen</returns>
+        </member>
+        <member name="M:GridWorld.InputEventHandlers.StartInteractivePlayerTurnEventHandler(System.Windows.Forms.Form)">
+            <summary>
+            This function is called at the start of an interactive player turn.
+            </summary>
+            <returns>An ArrayList of worlstate changes that can be used to update the screen</returns>
+        </member>
+        <member name="M:GridWorld.InputEventHandlers.KeyDownEventHandler(System.Windows.Forms.KeyEventArgs,System.Drawing.Point,System.Windows.Forms.Form)">
+            <summary>
+            This fucntion is called when the app detects a Keyboard, KeyDown event.
+            </summary>
+            <returns>An ArrayList of worlstate changes that can be used to update the screen</returns>
+        </member>
+        <member name="M:GridWorld.InputEventHandlers.KeyUpEventHandler(System.Windows.Forms.KeyEventArgs,System.Drawing.Point,System.Windows.Forms.Form)">
+            <summary>
+            This fucntion is called when the app detects a Keyboard, KeyUp event.
+            </summary>
+            <param name="e"></param>
+            <param name="gridSquareLoc"></param>
+            <param name="f"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.InputEventHandlers.PassTurnEventHandler(System.Drawing.Point,System.Windows.Forms.Form)">
+            <summary>
+            This function is called when a user clicks on the Pass Turn button in the app.
+            Sets up an empty Command
+            </summary>
+            <param name="gridSquareLoc"></param>
+            <param name="f"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.InputEventHandlers.CheckLegalMove(GridWorld.Command)">
+            <summary>
+            This checks the worldstate to see if this command is a valid command for that player.
+            </summary>
+            <param name="c"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.InputEventHandlers.GetPlayerPickupAtGridSquare(System.Drawing.Point)">
+            <summary>
+            Checks the content type of the GridSquare, if the contents are a snail, and it belongs to the player, then return the bitmap for that Snail, otherwise simply return null.
+            </summary>
+            <param name="gridP"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.InputEventHandlers.TerrainUpdateWorldState(GridWorld.WorldState,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Used by the terrain editor, this method makes creates a WorldStateChanges and adds it to the worldstates worldstatechanges.
+            Returns and arraylist of worlstatechanges to be rendered to the board.
+            </summary>
+        </member>
+        <member name="M:GridWorld.InputEventHandlers.GetSnailCoordinates(System.Int32)">
+            <summary>
+            Returns the coordinates of a snail for this player, if one exists. 
+            </summary>
+            <param name="player"></param>
+            <returns></returns>
+        </member>
+        <member name="P:GridWorld.InputEventHandlers.currentPlayerID">
+            <summary>
+            The ID of the player whose turn it is.
+            </summary>
+        </member>
+        <member name="T:GridWorld.WorldState">
+            <summary>
+            WorldState contains complete information about the state of the game world.
+            In a game of incomplete information, the data herein is a superset of the
+            data in each PlayerWorldState. Even in a game of complete information, the 
+            presentation of the data in WorldState (used for game rules management)
+            and of the data in PlayerWorldState (used for AI) may be different. Both
+            PlayerWorldState and WorldState are derived from BaseWorldState which 
+            contains common functionality.
+            </summary>
+        </member>
+        <member name="F:GridWorld.WorldState.MaxNoProgressMoveCount">
+            <summary>
+            The maximum number of moves a player can have which do not make a new splat before the players game is over.
+            </summary>
+        </member>
+        <member name="F:GridWorld.WorldState.playerNoProgressMoveCount">
+            <summary>
+            The number of moves that a player has made without taking a new square. When 10 moves are made, that player can no
+            longer make any moves.  Use (player number - 1) as the index to the array.
+            </summary>
+        </member>
+        <member name="F:GridWorld.WorldState.grid">
+            <summary>
+            The current grid.
+            </summary>
+        </member>
+        <member name="F:GridWorld.WorldState.gameOverText">
+            <summary>
+            null string until game end.
+            </summary>
+        </member>
+        <member name="M:GridWorld.WorldState.isValidPickupPiece(GridWorld.GridSquare,System.Int32)">
+            <summary>
+            Checks to see if the contents of the GridSquare can be picked up by a user.
+            </summary>
+        </member>
+        <member name="M:GridWorld.WorldState.IsLegal(System.Int32,GridWorld.Command)">
+            <summary>
+            A legal command c must move a snail belonging to player ID p to an adjacent empty square.
+            </summary>
+            <param name="p">The ID of the player issuing the command</param>
+            <param name="c">The command to be tested for legality</param>
+            <returns>True if a legal move.</returns>
+        </member>
+        <member name="M:GridWorld.WorldState.GetAdjacentGridSquares(System.Int32,System.Int32)">
+            <summary>
+            Get grid squares adjacent to (x,y) not including (x,y).
+            </summary>
+        </member>
+        <member name="M:GridWorld.WorldState.AdjacentEmptySquareExists(System.Int32,System.Int32)">
+            <summary>
+            Is there an empty square adjacent to (x,y)?
+            </summary>
+        </member>
+        <member name="M:GridWorld.WorldState.GetToolTipTextForGridSquare(System.Int32,System.Int32)">
+            <summary>
+            Get the tooltip text for grid square (x,y). Throws an exception if (x,y) out of range.
+            </summary>
+        </member>
+        <member name="M:GridWorld.WorldState.GetPlayerIDForGridSquare(System.Int32,System.Int32)">
+            <summary>
+            Get the player number for grid square (x,y). Throws an exception if (x,y) out of range.
+            </summary>
+        </member>
+        <member name="M:GridWorld.WorldState.ToString">
+            <summary>
+            Output the Snails! board in a readable text format (for at most 10 players).
+            . = empty square, # = impassable square, 
+            1 = player 1 snail, [Shift][1] = ! = player 1 trail,
+            2 = player 2 snail, [Shift][2] = " = player 2 trail, 
+            3 = player 3 snail, [Shift][3] = £ = player 3 trail,
+            ...
+            9 = player 9 snail, [Shift][9] = ( = player 9 trail,
+            0 = player 10 snail, [Shift][0] = ) = player 10 trail.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:GridWorld.WorldState.turnCommandsAvailable">
+            <summary>
+            Does the current interactive (or AI) player have some commands for the current turn entered by the user?
+            </summary>
+        </member>
+        <member name="F:GridWorld.WorldState.theInteractivePlayerCommand">
+            <summary>
+            A list of commands for an InteractivePlayer.
+            </summary>
+        </member>
+        <member name="F:GridWorld.WorldState.worldStateChanges">
+            <summary>
+            An arrayList containing all WorldStateChanges.
+            Note WorldStateChanges associated with turn 0 are terrain instructions.
+            </summary>
+        </member>
+        <member name="F:GridWorld.WorldState.turnIndexes">
+            <summary>
+            Pointers to the first element of each turn in the worldStateChanges array.
+            </summary>
+        </member>
+        <member name="F:GridWorld.WorldState.gameFinished">
+            <summary>
+            Is the current game finished?
+            </summary>
+        </member>
+        <member name="F:GridWorld.WorldState.playerScores">
+            <summary>
+            The current score for each player.
+            </summary>
+        </member>
+        <member name="F:GridWorld.WorldState.playerWorldStates">
+            <summary>
+            The world state as seen by each player
+            </summary>
+        </member>
+        <member name="F:GridWorld.WorldState.terrainName">
+            <summary>
+            The name of the terrain that the current game started on.
+            </summary>
+        </member>
+        <member name="M:GridWorld.WorldState.#ctor">
+            <summary>
+            Create a "blank" WorldState that must then be "filled in" by a call to Initialise()
+            </summary>
+        </member>
+        <member name="M:GridWorld.WorldState.InitialiseTerrain(System.Int32,System.Int32,System.Collections.ArrayList,System.Int32,System.String)">
+            <summary>
+            Creates a worldstate for the players passed to it and game information contained in 
+            the wscs WorldStateChange array. Only actions changes to the grid for turn 0.
+            </summary>
+            <param name="tn">Terrain Name</param>
+        </member>
+        <member name="M:GridWorld.WorldState.ActionCommand(System.Int32,GridWorld.ICommand)">
+            <summary>
+            Attempt to modify the WorldState according to command c from player p.
+            Return true if successful and false otherwise. Does not test for ambiguity
+            of the command. Also checks for game end.
+            </summary>
+        </member>
+        <member name="M:GridWorld.WorldState.getDestinationSquare(System.Int32,GridWorld.Command)">
+            <summary>
+            Returns the destination square if the given command was performed for the given player.
+            </summary>
+            <param name="player">The player ID.</param>
+            <param name="c">The command to perform.</param>
+            <returns>The destination square</returns>
+        </member>
+        <member name="M:GridWorld.WorldState.PassMove(System.Int32)">
+            <summary>
+            Enter a pass move. Note that lots of passes does not end a game of Snails.
+            A pass move counts as a "no progress" move for determining whether or not
+            a player's game is over.
+            </summary>
+            <param name="playerid"></param>
+        </member>
+        <member name="M:GridWorld.WorldState.ActionWorldStateChange(GridWorld.WorldStateChange)">
+            <summary>
+            The only way to change the grid. Action a given WorldStateChange and update variables for
+            snails and scores.
+            </summary>
+            <param name="wsc"></param>
+        </member>
+        <member name="M:GridWorld.WorldState.FastForwardToEndOfReplay">
+            <summary>
+            Go to the end of the replay file, changing the grid.
+            </summary>
+        </member>
+        <member name="M:GridWorld.WorldState.AddWorldStateChange(GridWorld.WorldStateChange,System.Boolean)">
+            <summary>
+            The only function allowed to change the world state (apart from UndoLastWorldStateChange below). 
+            </summary>
+            <param name="wsc"></param>
+            <param name="changeGrid">Should the 2D grid array be changed or not (i.e do I actually execute this turn)?</param>
+        </member>
+        <member name="M:GridWorld.WorldState.UndoLastWorldStateChange">
+            <summary>
+            Undo the last world state change and restore the grid.
+            Returns the world state change corresponding to what was done
+            i.e. the reverse of the WorldStateChange removed
+            </summary>
+        </member>
+        <member name="M:GridWorld.WorldState.GetGridSquareChangesForCurrentlyNonEmptySquares">
+            <summary>
+            Get the current state of the board in terrain form by
+            1. Making all WorldState changes have a turn number of zero
+            2. Only considering the last WorldStateChange for each GridSquare, and ignoring that if the
+            transition is to being empty
+            </summary>
+            <returns>Arraylist of WorldStateChanges for currently non-empty grid squares</returns>
+        </member>
+        <member name="M:GridWorld.WorldState.ChangeToTerrain">
+            <summary>
+            Changes the current WorldState (as at the current WorldState.TurnNumber) to a terrain file 
+            </summary>
+        </member>
+        <member name="M:GridWorld.WorldState.ActionGridSquareChange(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Grid square changes can *only* be actioned by calling this function, which updates the global
+            worldStateChanges arrays as well as PlayerWorldState worldStateChanges.
+            </summary>
+            <param name="x">x-coordinate</param>
+            <param name="y">y-coordinate</param>
+            <param name="newct">The new GridSquare.ContentType.</param>
+            <param name="newplayer">The ID of the new player for this square.</param>
+            <returnIndexes></returnIndexes>
+        </member>
+        <member name="M:GridWorld.WorldState.GetPlayerScoreString(System.Int32)">
+            <summary>
+            Return the very small information for the player which will be displayed in the GridWorld client - usually Score.
+            </summary>
+        </member>
+        <member name="M:GridWorld.WorldState.GetPlayerScore(System.Int32)">
+            <summary>
+            Return the player score for Player playerid.
+            </summary>
+        </member>
+        <member name="M:GridWorld.WorldState.CheckForGameEnd">
+            <summary>
+            The game is finished somewhat trivially if there are no snails,
+            when all squares are filled or when all players have made sufficient no progress moves.
+            </summary>
+        </member>
+        <member name="M:GridWorld.WorldState.CreateGameOverText(System.String)">
+            <summary>
+            Get the game over text that will appear on the form - assuming the game is over.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.WorldState.GetPlayerWorldState(System.Int32)">
+            <summary>
+            Get the player version of the world state.
+            </summary>
+            <param name="playerid">The ID (= 1,2,3,...) of the player whose world state we are getting. </param>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.WorldState.GetWorldStateChangesForTurn(System.Int32)">
+            <summary>
+            Returns all WorldStateChange objects for the given turn. Note that it needs to return a null ArrayList if the turn is
+            out of range.
+            </summary>
+        </member>
+        <member name="M:GridWorld.WorldState.GetAllWorldStateChangesFromTurn(System.Int32)">
+            <summary>
+            Returns all WorldStateChange objects from turn to the end of the game (inclusive)
+            </summary>
+        </member>
+        <member name="M:GridWorld.WorldState.UndoLastTurnWithWorldStateChanges">
+            <summary>
+            Find the most recent turn which has some WorldStateChanges. Undo this turn
+            and return an ArrayList which will tell the graphics how the turn should be undone.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.WorldState.UndoLastReplayTurnWithWorldStateChanges">
+            <summary>
+            Find the most previous replay turn which has some WorldStateChanges. Undo this turn
+            and return an ArrayList which will tell the graphics how the turn should be undone.
+            If there are no world state changes in any previous turn then return an empty ArrayList
+            and set TurnNumber == 1.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.WorldState.ActionReplayTurn">
+            <summary>
+            Update the grid, scores, snails for the TurnNumber replay turn.
+            </summary>
+        </member>
+        <member name="M:GridWorld.WorldState.PlayerHasAnyMoves(System.Int32)">
+            <summary>
+            Checks if a player can make a move.
+            </summary>
+            <param name="playerid">The player to check.</param>
+            <returns>True if player can make a move.</returns>
+        </member>
+        <member name="M:GridWorld.WorldState.AnyEmptySquares">
+            <summary>
+            Checks if there are any empty squares.
+            </summary>
+            <returns>True if there are any empty squares.</returns>
+        </member>
+        <member name="M:GridWorld.WorldState.GetPlayerTooltip(System.Int32)">
+            <summary>
+            Gets information about this player.
+            </summary>
+        </member>
+        <member name="M:GridWorld.WorldState.GetGameSpecificResult(System.Int32,System.Double[],System.Boolean[])">
+            <summary>
+            Get the part of the result of the game currently represented by the current WorldState, which is specific to Snails!.
+            (i.e. Score and Rank).
+            The way to read the results is given in GameSpecifics.TheGameSpecifics.TheWebServerResultsFormat
+            </summary>
+        </member>
+        <member name="P:GridWorld.WorldState.PlayerCount">
+            <summary>
+            The maximum number of players who normally play in this GridWorld. If insufficient
+            players are loaded or players have been eliminated this will be greater than the
+            number actually playing.
+            </summary>
+        </member>
+        <member name="P:GridWorld.WorldState.ActivePlayerCount">
+            <summary>
+            The number of players who are currently active (i.e. have moves) in this GridWorld
+            </summary>
+        </member>
+        <member name="P:GridWorld.WorldState.GameOverText">
+            <summary>
+            A string which is set as the StatusBar text when the Game has finished.
+            </summary>
+        </member>
+        <member name="P:GridWorld.WorldState.GridHeightInSquares">
+            <summary>
+            The height of the grid in squares.
+            </summary>
+        </member>
+        <member name="P:GridWorld.WorldState.GridWidthInSquares">
+            <summary>
+            The width of the grid in squares.
+            </summary>
+        </member>
+        <member name="P:GridWorld.WorldState.Grid">
+            <summary>
+            The current grid.
+            </summary>
+        </member>
+        <member name="P:GridWorld.WorldState.Item(System.Int32,System.Int32)">
+            <summary>
+            Access grid square (x,y).
+            </summary>
+        </member>
+        <member name="P:GridWorld.WorldState.TurnCommandsAvailable">
+            <summary>
+            Does the current interactive (or AI) player have some commands for the current turn entered by the user?
+            </summary>
+        </member>
+        <member name="P:GridWorld.WorldState.TheInteractivePlayerCommand">
+            <summary>
+            Does the current interactive (or AI) player have some commands for the current turn entered by the user?
+            </summary>
+        </member>
+        <member name="P:GridWorld.WorldState.WorldStateChanges">
+            <summary>
+            All the WorldStateChanges for this WorldState
+            </summary>
+        </member>
+        <member name="P:GridWorld.WorldState.GameFinished">
+            <summary>
+            Is the current game finished?
+            </summary>
+        </member>
+        <member name="P:GridWorld.WorldState.TurnNumber">
+            <summary>
+            Set or get turn number or the turn currently being played. For a replay file this will not be the last turn. While
+            a game is playing this will be the next turn for which we do not yet have any moves.
+            </summary>
+        </member>
+        <member name="P:GridWorld.WorldState.LastActiveTurnIndex">
+            <summary>
+            What is the TurnIndex of the last turn for which we have a WorldStateChange?
+            Return -1 if there are currently no WorldStateChanges at all.
+            </summary>
+        </member>
+        <member name="T:GridWorld.Command">
+            <summary>
+            A command contains the data for a single instruction from a player (interactive or AI).
+            The only command in Snails! is to move a snail from (X, Y) in the direction of (DirectionToMove).
+            </summary>
+        </member>
+        <member name="F:GridWorld.Command.xFrom">
+            <summary>
+            The x coordinate of the snail to move
+            </summary>
+        </member>
+        <member name="F:GridWorld.Command.yFrom">
+            <summary>
+            The y coordinate of the snail to move
+            </summary>
+        </member>
+        <member name="F:GridWorld.Command.dir">
+            <summary>
+            The direction to move the snail.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:GridWorld.Command.#ctor(System.Int32,System.Int32,GridWorld.Command.Direction)" -->
+        <member name="M:GridWorld.Command.ToString">
+            <summary>
+            A string representation of the command.
+            </summary>
+        </member>
+        <member name="P:GridWorld.Command.X">
+            <summary>
+            The X-coordinate of the snail to be moved. 
+            </summary>
+        </member>
+        <member name="P:GridWorld.Command.Y">
+            <summary>
+            The Y-coordinate of the snail to be moved.
+            </summary>
+        </member>
+        <member name="P:GridWorld.Command.DirectionToMove">
+            <summary>
+            The direction to move the snail.
+            </summary>
+        </member>
+        <member name="T:GridWorld.Command.Direction">
+            <summary>
+            The possible directions to move a snail, Up, Down, Left or Right.
+            </summary>
+        </member>
+        <member name="F:GridWorld.Command.Direction.Up">
+            <summary>
+            Move up.
+            </summary>
+        </member>
+        <member name="F:GridWorld.Command.Direction.Down">
+            <summary>
+            Move down.
+            </summary>
+        </member>
+        <member name="F:GridWorld.Command.Direction.Left">
+            <summary>
+            Move left.
+            </summary>
+        </member>
+        <member name="F:GridWorld.Command.Direction.Right">
+            <summary>
+            Move right.
+            </summary>
+        </member>
+        <member name="T:GridWorld.GameSpecifics">
+            <summary>
+            GameSpecifics contains all of the data needed for a specific game.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameSpecifics.gameName">
+            <summary>
+            The string name of the Game.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameSpecifics.gameDllName">
+            <summary>
+            The name of the Game's dll. This may be different to GameName if GameName contains illegal filename characters such as '!'.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameSpecifics.buttonImageContentType">
+            <summary>
+            The graphic that appears on a players Button in the player list.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameSpecifics.clientGraphics">
+            <summary>
+            The graphics used by the game client.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameSpecifics.clientWorldState">
+            <summary>
+            The WorldState used by the game client.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameSpecifics.serverWorldState">
+            <summary>
+            The WorldState used by the game server.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameSpecifics.inputEventHandlers">
+            <summary>
+            The event handling functions that deal with mouse clicks etc.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameSpecifics.webServerResultsFormat">
+            <summary>
+            The format used for diaplying single results and the league table on the web server.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameSpecifics.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameSpecifics.GetDefaultAITurnCommands(GridWorld.IPlayerWorldState,System.Int32)">
+            <summary>
+            Get the commands for the default AI player (that makes a random legal move each turn).
+            </summary>
+            <param name="igrid"></param>
+            <param name="playerid"></param>
+            <returns></returns>
+        </member>
+        <member name="M:GridWorld.GameSpecifics.DisplayGameSpecificParametersForm">
+            <summary>
+            Allows the user to view and edit the game specific parameters for a game, via a pre created form.
+            </summary>
+        </member>
+        <member name="P:GridWorld.GameSpecifics.GameName">
+            <summary>
+            The name of the Game.
+            </summary>
+        </member>
+        <member name="P:GridWorld.GameSpecifics.GameDllName">
+            <summary>
+            The name of the Game's dll. This may be different to GameName if GameName contains illegal filename characters such as '!'.
+            </summary>
+        </member>
+        <member name="P:GridWorld.GameSpecifics.ButtonImageContentType">
+            <summary>
+            The graphic that appears on a players Button in the player list.
+            </summary>
+        </member>
+        <member name="P:GridWorld.GameSpecifics.TheGameGraphics">
+            <summary>
+            The graphics used by the game client.
+            </summary>
+        </member>
+        <member name="P:GridWorld.GameSpecifics.TheClientWorldState">
+            <summary>
+            The WorldState used by the game client.
+            </summary>
+        </member>
+        <member name="P:GridWorld.GameSpecifics.TheServerWorldState">
+            <summary>
+            The WorldState used by the game server.
+            </summary>
+        </member>
+        <member name="P:GridWorld.GameSpecifics.TheInputEventHandlers">
+            <summary>
+            The event handling functions that deal with mouse clicks etc.
+            </summary>
+        </member>
+        <member name="P:GridWorld.GameSpecifics.TheWebServerResultsFormat">
+            <summary>
+            The format used for displaying single results and the league table on the web server.
+            </summary>
+        </member>
+        <member name="P:GridWorld.GameSpecifics.ClientGameSpecificParameters">
+            <summary>
+            Allows the loading of GameSpecific data, such as, the number of counters required to win the game in OXO,
+            for the game running in the client.
+            </summary>
+        </member>
+        <member name="P:GridWorld.GameSpecifics.ServerGameSpecificParameters">
+            <summary>
+            Allows the loading of GameSpecific data, such as, the number of counters required to win the game in OXO,
+            for the game running in the server.
+            </summary>
+        </member>
+        <member name="T:GridWorld.GridSquare">
+            <summary>
+            The content of a grid square.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GridSquare.player">
+            <summary>
+            Players are numbered 1,2,... (where player = 0 means "no player").
+            </summary>
+        </member>
+        <member name="F:GridWorld.GridSquare.contentType">
+            <summary>
+            The things that can be in a square.
+            Empty, Impassable, Snail and Trail.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridSquare.IsPiece">
+            <summary>
+            Returns true if the Contents of this square is of type Snail or
+            Trail, otherwise false.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridSquare.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Create an empty grid square at (xcoord, ycoord).
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridSquare.#ctor(System.Int32,System.Int32,GridWorld.GridSquare.ContentType)">
+            <summary>
+            Create a grid square at (xcoord, ycoord) with ContentType ct, not associated with a player.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridSquare.#ctor(System.Int32,System.Int32,GridWorld.GridSquare.ContentType,System.Int32)">
+            <summary>
+            Create a grid square (xcoord, ycoord) with ContentType ct belonging to player if id p.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GridSquare.ToString">
+            <summary>
+            Returns the coordinate, player and contests of the GridSquare as a String.
+            </summary>
+            <returns>String representation of the GridSquare.</returns>
+        </member>
+        <member name="P:GridWorld.GridSquare.X">
+            <summary>
+            The X-coordinate of this grid square.
+            </summary>
+        </member>
+        <member name="P:GridWorld.GridSquare.Y">
+            <summary>
+            The Y-coordinate of this grid square.
+            </summary>
+        </member>
+        <member name="P:GridWorld.GridSquare.Player">
+            <summary>
+            The player in this grid square. Players are numbered 1,2,... (where player = 0 means "no player").
+            </summary>
+        </member>
+        <member name="P:GridWorld.GridSquare.Contents">
+            <summary>
+            The contents of the square, one of Empty, Impassable, Snail or Trail.
+            </summary>
+        </member>
+        <member name="P:GridWorld.GridSquare.ContentString">
+            <summary>
+            A string representation of the contents of a square, one of "Empty", "Impassable", "Snail" or "Trail".
+            </summary>
+        </member>
+        <member name="P:GridWorld.GridSquare.ToolTipText">
+            <summary>
+            The tool tip text displayed when a player hovers over this grid square.
+            </summary>
+        </member>
+        <member name="T:GridWorld.GridSquare.ContentType">
+            <summary>
+            Possible contents of a GridSquare.
+            </summary>
+        </member>
+        <member name="T:GridWorld.GameSpecificParametersForm">
+            <summary>
+            Summary description for GameSpecificParametersForm.
+            </summary>
+        </member>
+        <member name="F:GridWorld.GameSpecificParametersForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameSpecificParametersForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:GridWorld.GameSpecificParametersForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:GridWorld.PlayerWorldState">
+            <summary>
+            PlayerWorldState contains all of the data available to the player at the start of
+            each turn. In a game of incomplete information (e.g. Terrarium) this will
+            be only part of the world state. Both PlayerWorldState and WorldState are 
+            derived from BaseWorldState which contains common functionality.
+            </summary>
+        </member>
+        <member name="F:GridWorld.PlayerWorldState.grid">
+            <summary>
+            The current grid.
+            </summary>
+        </member>
+        <member name="M:GridWorld.PlayerWorldState.isValidPickupPiece(GridWorld.GridSquare,System.Int32)">
+            <summary>
+            Checks to see if the contents of the GridSquare can be picked up by a user.
+            </summary>
+        </member>
+        <member name="M:GridWorld.PlayerWorldState.IsLegal(System.Int32,GridWorld.Command)">
+            <summary>
+            A legal command c must move a snail belonging to player ID p.
+            </summary>
+            <param name="p">The ID of the player issuing the command</param>
+            <param name="c">The command to be tested for legality</param>
+            <returns>True if a legal move.</returns>
+        </member>
+        <member name="M:GridWorld.PlayerWorldState.GetAdjacentGridSquares(System.Int32,System.Int32)">
+            <summary>
+            Get grid squares adjacent to (x,y) not including (x,y).
+            </summary>
+        </member>
+        <member name="M:GridWorld.PlayerWorldState.AdjacentEmptySquareExists(System.Int32,System.Int32)">
+            <summary>
+            Is there an empty square adjacent to (x,y)?
+            </summary>
+        </member>
+        <member name="M:GridWorld.PlayerWorldState.ToString">
+            <summary>
+            Output the Snails! board in a readable text format (for at most 10 players).
+            . = empty square, # = impassable square, 
+            1 = player 1 snail, [Shift][1] = ! = player 1 trail,
+            2 = player 2 snail, [Shift][2] = " = player 2 trail, 
+            3 = player 3 snail, [Shift][3] = £ = player 3 trail,
+            ...
+            9 = player 9 snail, [Shift][9] = ( = player 9 trail,
+            0 = player 10 snail, [Shift][0] = ) = player 10 trail.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:GridWorld.PlayerWorldState.snails">
+            <summary>
+            The snails for this player.
+            </summary>
+        </member>
+        <member name="M:GridWorld.PlayerWorldState.AddSnail(GridWorld.GridSquare)">
+            <summary>
+            Add a new snail
+            </summary>
+        </member>
+        <member name="M:GridWorld.PlayerWorldState.RemoveSnail(GridWorld.GridSquare)">
+            <summary>
+            Remove snail at GridSquare s
+            </summary>
+        </member>
+        <member name="M:GridWorld.PlayerWorldState.getDestinationSquare(System.Int32,GridWorld.Command)">
+            <summary>
+            Returns the destination square if the given command was performed for the given player.
+            </summary>
+            <param name="player">The player ID.</param>
+            <param name="c">The command to perform.</param>
+            <returns>The destination square</returns>
+        </member>
+        <member name="M:GridWorld.PlayerWorldState.RemoveAllSnails">
+            <summary>
+            Remove all snails.
+            </summary>
+        </member>
+        <member name="M:GridWorld.PlayerWorldState.GetSnail(System.Int32)">
+            <summary>
+            Get the snail at index. Throws an exception if index is out of range.
+            </summary>
+        </member>
+        <member name="P:GridWorld.PlayerWorldState.PlayerCount">
+            <summary>
+            The number of players who normally play in this Snails Terrain. 
+            </summary>
+        </member>
+        <member name="P:GridWorld.PlayerWorldState.GridHeightInSquares">
+            <summary>
+            The height of the grid in squares.
+            </summary>
+        </member>
+        <member name="P:GridWorld.PlayerWorldState.GridWidthInSquares">
+            <summary>
+            The width of the grid in squares.
+            </summary>
+        </member>
+        <member name="P:GridWorld.PlayerWorldState.TurnNumber">
+            <summary>
+            The current turn number. For a game playing/replaying this always reflects the turn currently just about to be played/replayed.
+            </summary>
+        </member>
+        <member name="P:GridWorld.PlayerWorldState.ID">
+            <summary>
+            Your player ID number (Player 1 has ID = 1, PLayer 2 has ID = 2 etc). 
+            </summary>
+        </member>
+        <member name="P:GridWorld.PlayerWorldState.Item(System.Int32,System.Int32)">
+            <summary>
+            Access grid square (x,y).
+            </summary>
+        </member>
+        <member name="P:GridWorld.PlayerWorldState.NumberOfSnails">
+            <summary>
+            The number of snails for this player
+            </summary>
+        </member>
+    </members>
+</doc>

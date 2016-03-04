@@ -1,0 +1,10 @@
+C:\Temp\AIFG-SNAILS\sakhatri.dll
+C:\Temp\AIFG-SNAILS\sakhatri.pdb
+M:\Workspace\AI For Games\Lab2\AIFG-SNAILS\SnailsLab\SnailsAttempt2\obj\Debug\sakhatri.dll
+M:\Workspace\AI For Games\Lab2\AIFG-SNAILS\SnailsLab\SnailsAttempt2\obj\Debug\sakhatri.pdb
+M:\Workspace\AI For Games\Lab2\AIFG-SNAILS\SnailsLab\SnailsAttempt2\obj\Debug\SnailsAttempt2.csprojResolveAssemblyReference.cache
+D:\Users\Acer\Workspace\AI For Games\AI For Games\Lab2\SnailsLab\output\sakhatri.dll
+D:\Users\Acer\Workspace\AI For Games\AI For Games\Lab2\SnailsLab\output\sakhatri.pdb
+D:\Users\Acer\Workspace\AI For Games\AI For Games\Lab2\SnailsLab\SnailsAttempt2\obj\Debug\SnailsAttempt2.csprojResolveAssemblyReference.cache
+D:\Users\Acer\Workspace\AI For Games\AI For Games\Lab2\SnailsLab\SnailsAttempt2\obj\Debug\sakhatri.dll
+D:\Users\Acer\Workspace\AI For Games\AI For Games\Lab2\SnailsLab\SnailsAttempt2\obj\Debug\sakhatri.pdb
