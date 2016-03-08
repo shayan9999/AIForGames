@@ -152,20 +152,36 @@ namespace GridWorld
             return;
         }
 
+        private int CountMySquares
+        {
+            //TODO: This method should return number of squares from boardArray that belong to MySnail / MyTrail
+        }
+
+        private int CountOpponentSquares
+        {
+            //TODO: This method should return number of squares from boardArray that belong to Opponent / OpponentTrail
+        }
+
+        private int CountEmptySquaresAroundMe {
+            //TODO: Count all empty squares around  MySnail / MyTrail
+        }
+
+        private int CountEmptySquaresAroundOpponent
+        {
+            //TODO: Count all empty squares around  Opponent / OpponentTrail
+        }
+
         /// <summary>
-        /// YOU NEED TO WRITE THIS!
-        /// Loop through boardArray squares 
-        /// - count my squares (snail/trail)
-        /// - count opponent's squares (snail/trail)
-        /// (one function for both the above)
-        /// - count empty squares adjacent to my snails
-        /// - count empty squares adjacent to my opponent's snails
-        /// (one function for both the above)
+        /// Loop through boardArray squares to calculate the score
         /// </summary>
         /// <param name="p"></param>
-        /// <returns></returns>
+        /// <returns> 
+        /// double value to represent score for this board that shall be used in deciding the best move 
+        /// </returns>
         internal double GetEstimatedResult(int p)
         {
+            //TODO: Calculate your Snail's count, Enemy's and find which one will be better.
+            // The score should represent which snail is better off in this board copy.
             throw new NotImplementedException();
         }
 
@@ -177,7 +193,6 @@ namespace GridWorld
         public override string ToString()
         {
             string outstr = "";
-
             for (int y = this.Height - 1; y >= 0; y--)
             {
                 for (int x = 0; x < this.Width; x++)

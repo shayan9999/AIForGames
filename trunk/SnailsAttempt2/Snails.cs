@@ -121,7 +121,7 @@ namespace GridWorld
                        && Math.Abs(x1 - y1) == 1)
                     { // checking if we are looking only at right and left and up and down not diagonal ) {
 
-                        if (currentGridState[x1, y1].Contents == GridSquare.ContentType.Empty ||
+                        if (  currentGridState[x1, y1].Contents == GridSquare.ContentType.Empty ||
                              (currentGridState[x1, y1].Contents == GridSquare.ContentType.Trail &&
                               currentGridState[x1, y1].Player == this.ID))
                         {
