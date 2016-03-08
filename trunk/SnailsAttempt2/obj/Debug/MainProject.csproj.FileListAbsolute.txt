@@ -8,3 +8,8 @@ D:\Users\Acer\Workspace\AI For Games\Project1\AIForGames\trunk\output\mainAI.pdb
 D:\Users\Acer\Workspace\AI For Games\Project1\AIForGames\trunk\SnailsAttempt2\obj\Debug\MainProject.csprojResolveAssemblyReference.cache
 D:\Users\Acer\Workspace\AI For Games\Project1\AIForGames\trunk\SnailsAttempt2\obj\Debug\mainAI.dll
 D:\Users\Acer\Workspace\AI For Games\Project1\AIForGames\trunk\SnailsAttempt2\obj\Debug\mainAI.pdb
+D:\Users\Acer\Workspace\AI For Games\MainProject\trunk\SnailsAttempt2\obj\Debug\MainProject.csprojResolveAssemblyReference.cache
+D:\Users\Acer\Workspace\AI For Games\MainProject\trunk\SnailsAttempt2\obj\Debug\mainAI.dll
+D:\Users\Acer\Workspace\AI For Games\MainProject\trunk\SnailsAttempt2\obj\Debug\mainAI.pdb
+D:\Users\Acer\Workspace\AI For Games\MainProject\trunk\output\mainAI.dll
+D:\Users\Acer\Workspace\AI For Games\MainProject\trunk\output\mainAI.pdb
