@@ -6,77 +6,67 @@ using System.Text;
 namespace GridWorld
 {
     /// <summary>
+    /// An enum to define content types of 2D Array in the Board.
+    /// Each Element Category is represented by enum values from this set
+    /// </summary>
+    ///
+    enum ContenType {
+        Empty = 0,
+        Impassable = int.MinValue,
+        MySnail         = 1,
+        MyTrail         = 2,
+        Opponent        = 3,
+        OpponentTrail   = 4
+    };
+
+    /// <summary>
     /// An internal representation of the snails board. Assumes 2 players (numbered 1 and 2).
     /// </summary>
+    ///
     class Board
     {
+
         /// <summary>
         /// A representation of the Snails board
-        /// 0 = empty square
-        /// id (1,2) = player snail (for player with given id)
-        /// -id (-1,-2) = player trail (for player with given id)
-        /// -100 = impassable square
         /// </summary>
-        int[,] boardArray;
-
-        /// <summary>
-        /// Value in the boardArray that represents an impassable square
-        /// </summary>
-        const int Impassable = -100;
-
-        /// <summary>
-        /// Value in the boardArray that represents an empty square
-        /// </summary>
-        const int Empty = 0;
-
-        /// <summary>
-        /// Snail belonging to player just about to move
-        /// </summary>
-        int MySnail { get { return MyID; } }
-
-        /// <summary>
-        /// Trail belonging to player just about to move
-        /// </summary>
-        int MyTrail { get { return -MyID; } }
-
-        /// <summary>
-        /// Snail belonging to opponent of player just about to move. Assumes 2 players.
-        /// </summary>
-        int OppSnail { get { return 3 - MyID; } }
-
-        /// <summary>
-        /// Trail belonging to opponent of player just about to move. Assumes 2 players.
-        /// </summary>
-        int OppTrail { get { return MyID - 3; } } // assumes 2 players
+        protected ContenType[,] boardArray;
 
         /// <summary>
         /// The ID of the Snails player about to move from this position
         /// </summary>
-        int MyID;
+        protected int MyID;
 
         /// <summary>
         /// Width and Height of the Board
         /// </summary>
-        int Width, Height;
+        protected int Width, Height;
 
         public Board(PlayerWorldState pws)
         {
-            MyID = pws.ID; // I am just about to move
-            Width = pws.GridWidthInSquares;
-            Height = pws.GridHeightInSquares;
+            MyID        = pws.ID; // I am just about to move
+            Width       = pws.GridWidthInSquares;
+            Height      = pws.GridHeightInSquares;
 
-            boardArray = new int[Width, Height];
+            boardArray = new ContenType[Width, Height];
+            this.PopulateBoard(pws);
+        }
 
+        private void PopulateBoard(PlayerWorldState pws)
+        {
             for (int x = 0; x < Width; x++)
+            {
                 for (int y = 0; y < Height; y++)
+                {
                     if (pws[x, y].Contents == GridSquare.ContentType.Snail)
-                        boardArray[x, y] = pws[x, y].Player; // For a snail, record player ID
+                        boardArray[x, y] = (pws[x, y].Player == MyID)? ContenType.MySnail : ContenType.Opponent;
                     else if (pws[x, y].Contents == GridSquare.ContentType.Trail)
-                        boardArray[x, y] = -pws[x, y].Player; // For a trail, record MINUS player ID
+                        boardArray[x, y] = (pws[x, y].Player == MyID) ? ContenType.MyTrail : ContenType.OpponentTrail;
                     else if (pws[x, y].Contents == GridSquare.ContentType.Impassable)
-                        boardArray[x, y] = Impassable; // For impassable, record int.MaxValue
+                        boardArray[x, y] = ContenType.Impassable; // For impassable, record int.MaxValue
                     else
-                        boardArray[x, y] = Empty; // empty
+                        boardArray[x, y] = ContenType.Empty; // empty
+                }
+            }
         }
 
         /// <summary>
@@ -89,19 +79,19 @@ namespace GridWorld
 
             for (int x = 0; x < Width; x++)
                 for (int y = 0; y < Height; y++)
-                    if (boardArray[x, y] == MySnail)
+                    if (boardArray[x, y] == ContenType.MySnail)
                     {
                         if (x >= 1 &&
-                            (boardArray[x - 1, y] == Empty || boardArray[x - 1, y] == MyTrail))
+                            (boardArray[x - 1, y] == ContenType.Empty || boardArray[x - 1, y] == ContenType.MyTrail))
                             commands.Add(new Command(x, y, Command.Direction.Left));
                         if (y >= 1 &&
-                            (boardArray[x, y - 1] == Empty || boardArray[x, y - 1] == MyTrail))
+                            (boardArray[x, y - 1] == ContenType.Empty || boardArray[x, y - 1] == ContenType.MyTrail))
                             commands.Add(new Command(x, y, Command.Direction.Down));
                         if (x <= Width - 2 &&
-                            (boardArray[x + 1, y] == Empty || boardArray[x + 1, y] == MyTrail))
+                            (boardArray[x + 1, y] == ContenType.Empty || boardArray[x + 1, y] == ContenType.MyTrail))
                             commands.Add(new Command(x, y, Command.Direction.Right));
                         if (y <= Height - 2 &&
-                            (boardArray[x, y + 1] == Empty || boardArray[x, y + 1] == MyTrail))
+                            (boardArray[x, y + 1] == ContenType.Empty || boardArray[x, y + 1] == ContenType.MyTrail))
                             commands.Add(new Command(x, y, Command.Direction.Up));
                     }
 
@@ -126,7 +116,7 @@ namespace GridWorld
         /// </summary>
         internal void DoMove(Command c)
         {
-            System.Diagnostics.Debug.Assert(boardArray[c.X, c.Y] == MySnail); // better be my snail moving
+            System.Diagnostics.Debug.Assert(boardArray[c.X, c.Y] == ContenType.MySnail); // better be my snail moving
 
             // When I move in direction dir, how do the (x,y) coordinates change.
             // E.g. When moving up I go from (x,y) to (x,y+1) so dx = 0, dy = +1
@@ -144,21 +134,21 @@ namespace GridWorld
             }
 
             // The adjacent square in direction dir is empty so that is the destination 
-            if (boardArray[c.X + dx, c.Y + dy] == Empty)
+            if (boardArray[c.X + dx, c.Y + dy] == ContenType.Empty)
             {
-                boardArray[c.X, c.Y] = MyTrail;
-                boardArray[c.X + dx, c.Y + dy] = MySnail;
+                boardArray[c.X, c.Y] = ContenType.MyTrail;
+                boardArray[c.X + dx, c.Y + dy] = ContenType.MySnail;
                 return;
             }
 
             // slide along my trail
             int dist = 1; // distance slid so far
             while (IsOnBoard(c.X + dist * dx, c.Y + dist * dy) &&
-                   boardArray[c.X + dist * dx, c.Y + dist * dy] == MyTrail)
+                   boardArray[c.X + dist * dx, c.Y + dist * dy] == ContenType.MyTrail)
                 dist++; // keep going until it is not my trail
 
-            boardArray[c.X, c.Y] = MyTrail;
-            boardArray[c.X + (dist - 1) * dx, c.Y + (dist - 1) * dy] = MySnail;
+            boardArray[c.X, c.Y] = ContenType.MyTrail;
+            boardArray[c.X + (dist - 1) * dx, c.Y + (dist - 1) * dy] = ContenType.MySnail;
             return;
         }
 
@@ -191,15 +181,15 @@ namespace GridWorld
             for (int y = this.Height - 1; y >= 0; y--)
             {
                 for (int x = 0; x < this.Width; x++)
-                    if (boardArray[x, y] == Empty)
+                    if (boardArray[x, y] == ContenType.Empty)
                         outstr += "."; // empty square
-                    else if (boardArray[x, y] == Impassable)
+                    else if (boardArray[x, y] == ContenType.Impassable)
                         outstr += "O"; // impassable square
-                    else if (boardArray[x, y] == MySnail)
+                    else if (boardArray[x, y] == ContenType.MySnail)
                         outstr += "@"; // my snail
-                    else if (boardArray[x, y] == MyTrail)
+                    else if (boardArray[x, y] == ContenType.MyTrail)
                         outstr += "*"; // my trail
-                    else if (boardArray[x, y] == OppSnail)
+                    else if (boardArray[x, y] == ContenType.Opponent)
                         outstr += "£"; // opponent snail
                     else
                         outstr += "-"; // opponent trail
