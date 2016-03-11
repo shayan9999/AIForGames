@@ -26,10 +26,12 @@ namespace GridWorld
         {
             #if true  // We need to implement these methods and use nested structure to evaluate different grid states
                 currentGridState = (PlayerWorldState)igrid;
-                Board internalBoard = new Board(currentGridState);
-                //WriteTrace(internalBoard);
 
-                double r; // temporary estmated result for a board
+                // create a new board with current state of the grid
+                Board internalBoard = new Board(currentGridState);
+                WriteTrace(internalBoard);
+
+                double scoreFirstLayer, scoreSecondLayer; // temporary estmated result for a board
                 Command BestMove = null;
                 double BestScore = double.MinValue; // start out at a value worse than any value we could get
 
@@ -37,15 +39,38 @@ namespace GridWorld
 
                 foreach (Command c in moves)
                 {
+
+                    //Create a board with current state of the GRIDWORLD and do current move on it to update its boardArray
                     Board tempBoard = new Board(currentGridState);
                     tempBoard.DoMove(c); // the board resulting from doing move c
                     //WriteTrace(tempBoard);
-                    r = tempBoard.GetEstimatedResult(this.ID); // an estimate of who is winning in this position
-                    //WriteTrace("Score = " + r);
-                    if (r > BestScore)
-                    {
-                        BestScore = r;
-                        BestMove = c;
+                    
+                    //Get the score from this first move
+                    scoreFirstLayer = tempBoard.GetEstimatedResult(this.ID); // an estimate of who is winning in this position
+                    //WriteTrace("Score = " + scoreFirstLayer);
+
+                    //ContenType[,] boardFromThisMove = tempBoard.GetCurrentBoard;
+                    //tempBoard.MyID = ((currentGridState.ID) % (currentGridState.PlayerCount + 1)) + 1;
+
+                    //Starting from the updated board from last move, also run next best opponent move and calculate results for it
+                    List<Command> moves2 = tempBoard.GetOpponentsMoves();
+                    
+                    foreach (Command c2 in moves2) {
+                        tempBoard.DoOpponentMove(c2);
+                        WriteTrace(tempBoard);
+
+                        scoreSecondLayer = tempBoard.GetEstimatedResult(this.ID);
+                        WriteTrace("Score = " + scoreFirstLayer);
+
+                        // Assuming that the opponent will play the same algorithm in his next turn,
+                        // try maximising score from our turn and opponent's predicted best turn combined
+                        if (scoreFirstLayer + scoreSecondLayer > BestScore)
+                        {
+                            BestScore = scoreFirstLayer + scoreSecondLayer;
+                            BestMove = c;
+                        }
+
+
                     }
                 }
 

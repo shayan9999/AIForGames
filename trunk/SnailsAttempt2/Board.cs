@@ -34,7 +34,7 @@ namespace GridWorld
         /// <summary>
         /// The ID of the Snails player about to move from this position
         /// </summary>
-        protected int MyID;
+        public int MyID {get; set;}
 
         /// <summary>
         /// Width and Height of the Board
@@ -51,6 +51,18 @@ namespace GridWorld
             this.PopulateBoard(pws);
         }
 
+        public Board(PlayerWorldState pws, ContenType[,] initialBoard)
+        {
+            MyID = pws.ID; // I am just about to move
+            Width = pws.GridWidthInSquares;
+            Height = pws.GridHeightInSquares;
+
+            boardArray = initialBoard;
+        }
+
+        /// <summary>
+        /// Populates the boardArray with current state of GRID
+        /// </summary>
         private void PopulateBoard(PlayerWorldState pws)
         {
             for (int x = 0; x < Width; x++)
@@ -66,6 +78,17 @@ namespace GridWorld
                     else
                         boardArray[x, y] = ContenType.Empty; // empty
                 }
+            }
+        }
+
+        /// <summary>
+        /// returns boardArray in current state.
+        /// can be used to get the updated board after DoMove()
+        /// </summary>
+        public ContenType[,] GetCurrentBoard
+        {
+            get{
+                return boardArray;
             }
         }
 
@@ -92,6 +115,32 @@ namespace GridWorld
                             commands.Add(new Command(x, y, Command.Direction.Right));
                         if (y <= Height - 2 &&
                             (boardArray[x, y + 1] == ContenType.Empty || boardArray[x, y + 1] == ContenType.MyTrail))
+                            commands.Add(new Command(x, y, Command.Direction.Up));
+                    }
+
+            return commands;
+        }
+
+
+        internal List<Command> GetOpponentsMoves()
+        {
+            List<Command> commands = new List<Command>();
+
+            for (int x = 0; x < Width; x++)
+                for (int y = 0; y < Height; y++)
+                    if (boardArray[x, y] == ContenType.Opponent)
+                    {
+                        if (x >= 1 &&
+                            (boardArray[x - 1, y] == ContenType.Empty || boardArray[x - 1, y] == ContenType.OpponentTrail))
+                            commands.Add(new Command(x, y, Command.Direction.Left));
+                        if (y >= 1 &&
+                            (boardArray[x, y - 1] == ContenType.Empty || boardArray[x, y - 1] == ContenType.OpponentTrail))
+                            commands.Add(new Command(x, y, Command.Direction.Down));
+                        if (x <= Width - 2 &&
+                            (boardArray[x + 1, y] == ContenType.Empty || boardArray[x + 1, y] == ContenType.OpponentTrail))
+                            commands.Add(new Command(x, y, Command.Direction.Right));
+                        if (y <= Height - 2 &&
+                            (boardArray[x, y + 1] == ContenType.Empty || boardArray[x, y + 1] == ContenType.OpponentTrail))
                             commands.Add(new Command(x, y, Command.Direction.Up));
                     }
 
@@ -149,6 +198,45 @@ namespace GridWorld
 
             boardArray[c.X, c.Y] = ContenType.MyTrail;
             boardArray[c.X + (dist - 1) * dx, c.Y + (dist - 1) * dy] = ContenType.MySnail;
+            return;
+        }
+
+
+        internal void DoOpponentMove(Command c)
+        {
+            //System.Diagnostics.Debug.Assert(boardArray[c.X, c.Y] == ContenType.Opponent); // better be my snail moving
+
+            // When I move in direction dir, how do the (x,y) coordinates change.
+            // E.g. When moving up I go from (x,y) to (x,y+1) so dx = 0, dy = +1
+            int dx = 0, dy = 0;
+            switch (c.DirectionToMove)
+            {
+                case Command.Direction.Up:
+                    dx = 0; dy = +1; break;
+                case Command.Direction.Down:
+                    dx = 0; dy = -1; break;
+                case Command.Direction.Right:
+                    dx = +1; dy = 0; break;
+                case Command.Direction.Left:
+                    dx = -1; dy = 0; break;
+            }
+
+            // The adjacent square in direction dir is empty so that is the destination 
+            if (boardArray[c.X + dx, c.Y + dy] == ContenType.Empty)
+            {
+                boardArray[c.X, c.Y] = ContenType.OpponentTrail;
+                boardArray[c.X + dx, c.Y + dy] = ContenType.Opponent;
+                return;
+            }
+
+            // slide along my trail
+            int dist = 1; // distance slid so far
+            while (IsOnBoard(c.X + dist * dx, c.Y + dist * dy) &&
+                   boardArray[c.X + dist * dx, c.Y + dist * dy] == ContenType.OpponentTrail)
+                dist++; // keep going until it is not my trail
+
+            boardArray[c.X, c.Y] = ContenType.OpponentTrail;
+            boardArray[c.X + (dist - 1) * dx, c.Y + (dist - 1) * dy] = ContenType.Opponent;
             return;
         }
 
