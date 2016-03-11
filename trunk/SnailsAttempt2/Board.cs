@@ -213,8 +213,8 @@ namespace GridWorld
             {
                 for (y1 = initialY - 1; y1 <= initialY + 1; y1++)
                 {
-                    if (y1 >= 0 && y1 <= Height   // checkin if y value is within bounds of Grid
-                       && x1 >= 0 && x1 <= Width  // checking if x value is within bounds of Grid
+                    if (y1 >= 0 && y1 < Height   // checkin if y value is within bounds of Grid
+                       && x1 >= 0 && x1 < Width  // checking if x value is within bounds of Grid
                        && Math.Abs(x1 - y1) == 1) // checking if we are looking only at right and left and up and down not diagonal )
                     {
 

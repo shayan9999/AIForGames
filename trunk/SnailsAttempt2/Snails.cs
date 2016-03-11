@@ -27,7 +27,7 @@ namespace GridWorld
             #if true  // We need to implement these methods and use nested structure to evaluate different grid states
                 currentGridState = (PlayerWorldState)igrid;
                 Board internalBoard = new Board(currentGridState);
-                WriteTrace(internalBoard);
+                //WriteTrace(internalBoard);
 
                 double r; // temporary estmated result for a board
                 Command BestMove = null;
@@ -39,9 +39,9 @@ namespace GridWorld
                 {
                     Board tempBoard = new Board(currentGridState);
                     tempBoard.DoMove(c); // the board resulting from doing move c
-                    WriteTrace(tempBoard);
+                    //WriteTrace(tempBoard);
                     r = tempBoard.GetEstimatedResult(this.ID); // an estimate of who is winning in this position
-                    WriteTrace("Score = " + r);
+                    //WriteTrace("Score = " + r);
                     if (r > BestScore)
                     {
                         BestScore = r;
