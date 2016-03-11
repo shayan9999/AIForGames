@@ -24,83 +24,83 @@ namespace GridWorld
         /// </summary>
         public override ICommand GetTurnCommands(IPlayerWorldState igrid)
         {
-        #if MINIMAX  // We need to implement these methods and use nested structure to evaluate different grid states
-                    myWorldState = (PlayerWorldState)igrid;
-                    Board internalBoard = new Board(myWorldState);
-                    WriteTrace(internalBoard);
+            #if true  // We need to implement these methods and use nested structure to evaluate different grid states
+                currentGridState = (PlayerWorldState)igrid;
+                Board internalBoard = new Board(currentGridState);
+                WriteTrace(internalBoard);
 
-                    double r; // temporary estmated result for a board
-                    Command BestMove = null;
-                    double BestScore = double.MinValue; // start out at a value worse than any value we could get
+                double r; // temporary estmated result for a board
+                Command BestMove = null;
+                double BestScore = double.MinValue; // start out at a value worse than any value we could get
 
-                    List<Command> moves = internalBoard.GetMoves();
+                List<Command> moves = internalBoard.GetMoves();
 
-                    foreach (Command c in moves)
+                foreach (Command c in moves)
+                {
+                    Board tempBoard = new Board(currentGridState);
+                    tempBoard.DoMove(c); // the board resulting from doing move c
+                    WriteTrace(tempBoard);
+                    r = tempBoard.GetEstimatedResult(this.ID); // an estimate of who is winning in this position
+                    WriteTrace("Score = " + r);
+                    if (r > BestScore)
                     {
-                        Board tempBoard = new Board(myWorldState);
-                        tempBoard.DoMove(c); // the board resulting from doing move c
-                        WriteTrace(tempBoard);
-                        r = tempBoard.GetEstimatedResult(this.ID); // an estimate of who is winning in this position
-                        WriteTrace("Score = " + r);
-                        if (r > BestScore)
+                        BestScore = r;
+                        BestMove = c;
+                    }
+                }
+
+                return BestMove; 
+
+            #else
+                currentGridState = (PlayerWorldState)igrid;
+                Command turnCommand;
+
+                // initial positions of the player snail
+                int myX = 0; int myY = 0;
+
+                // loop through the world grid and get the current players position
+                // Probably improve this to always have current position for this player on the GRID?
+                for (int x = 0; x < currentGridState.GridWidthInSquares; x++)
+                    for (int y = 0; y < currentGridState.GridHeightInSquares; y++)
+                        if (currentGridState[x, y].Contents == GridSquare.ContentType.Snail && currentGridState[x, y].Player == this.ID)
                         {
-                            BestScore = r;
-                            BestMove = c;
+                            myX = x;
+                            myY = y;
                         }
-                    }
 
-                    return BestMove; 
+                List<GridSquare> emptySquares = GetAdjacentEmptySquares(myX, myY);
+                WriteTrace("Size: " + emptySquares.Count);
 
-        #else
-            currentGridState = (PlayerWorldState)igrid;
-            Command turnCommand;
+                if (emptySquares.Count > 0)
+                {
+                    Random r = new Random();
+                    int index = r.Next(emptySquares.Count);
+                    GridSquare gs = (GridSquare)emptySquares[index];
 
-            // initial positions of the player snail
-            int myX = 0; int myY = 0;
-
-            // loop through the world grid and get the current players position
-            // Probably improve this to always have current position for this player on the GRID?
-            for (int x = 0; x < currentGridState.GridWidthInSquares; x++)
-                for (int y = 0; y < currentGridState.GridHeightInSquares; y++)
-                    if (currentGridState[x, y].Contents == GridSquare.ContentType.Snail && currentGridState[x, y].Player == this.ID)
+                    if (gs.X == myX + 1)
+                        turnCommand = new Command(myX, myY, Command.Direction.Right);
+                    else if (gs.X == myX - 1)
+                        turnCommand = new Command(myX, myY, Command.Direction.Left);
+                    else if (gs.Y == myY + 1)
+                        turnCommand = new Command(myX, myY, Command.Direction.Up);
+                    else if (gs.Y == myY - 1)
+                        turnCommand = new Command(myX, myY, Command.Direction.Down);
+                    else
                     {
-                        myX = x;
-                        myY = y;
+                        WriteTrace(" NULL gs.X: " + gs.X + " myX:" + myX);
+                        WriteTrace(" NULL gs.Y: " + gs.Y + " myY:" + myY);
+                        turnCommand = null;
                     }
-
-            List<GridSquare> emptySquares = GetAdjacentEmptySquares(myX, myY);
-            WriteTrace("Size: " + emptySquares.Count);
-
-            if (emptySquares.Count > 0)
-            {
-                Random r = new Random();
-                int index = r.Next(emptySquares.Count);
-                GridSquare gs = (GridSquare)emptySquares[index];
-
-                if (gs.X == myX + 1)
-                    turnCommand = new Command(myX, myY, Command.Direction.Right);
-                else if (gs.X == myX - 1)
-                    turnCommand = new Command(myX, myY, Command.Direction.Left);
-                else if (gs.Y == myY + 1)
-                    turnCommand = new Command(myX, myY, Command.Direction.Up);
-                else if (gs.Y == myY - 1)
-                    turnCommand = new Command(myX, myY, Command.Direction.Down);
+                }
                 else
                 {
-                    WriteTrace(" NULL gs.X: " + gs.X + " myX:" + myX);
-                    WriteTrace(" NULL gs.Y: " + gs.Y + " myY:" + myY);
+                    WriteTrace(" NULL");
                     turnCommand = null;
                 }
-            }
-            else
-            {
-                WriteTrace(" NULL");
-                turnCommand = null;
-            }
 
-            // The command for snail includes current position and a direction
-            return turnCommand;
-        #endif
+                // The command for snail includes current position and a direction
+                return turnCommand;
+            #endif
         }
 
 
@@ -118,8 +118,8 @@ namespace GridWorld
 
                     if (y1 >= 0 && y1 <= currentGridState.GridHeightInSquares // checkin if y value is within bounds of Grid
                        && x1 >= 0 && x1 <= currentGridState.GridWidthInSquares  // checking if x value is within bounds of Grid
-                       && Math.Abs(x1 - y1) == 1)
-                    { // checking if we are looking only at right and left and up and down not diagonal ) {
+                       && Math.Abs(x1 - y1) == 1)// checking if we are looking only at right and left and up and down not diagonal )
+                    { 
 
                         if (  currentGridState[x1, y1].Contents == GridSquare.ContentType.Empty ||
                              (currentGridState[x1, y1].Contents == GridSquare.ContentType.Trail &&

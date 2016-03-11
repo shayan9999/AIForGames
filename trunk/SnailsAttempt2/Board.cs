@@ -152,23 +152,81 @@ namespace GridWorld
             return;
         }
 
-        private int CountMySquares
+        private int CountMySquares()
         {
-            //TODO: This method should return number of squares from boardArray that belong to MySnail / MyTrail
+            int mySqaures = 0;
+            for (int x = 0; x < Width; x++)
+                for (int y = 0; y < Height; y++)
+                    if (boardArray[x, y] == ContenType.MySnail || boardArray[x, y]== ContenType.MyTrail)
+                        mySqaures++;
+            return mySqaures;
         }
 
-        private int CountOpponentSquares
+        private int CountOpponentSquares()
         {
-            //TODO: This method should return number of squares from boardArray that belong to Opponent / OpponentTrail
+            int myOpponent = 0;
+            for (int x = 0; x < Width; x++)
+                for (int y = 0; y < Height; y++)
+                    if (boardArray[x, y] == ContenType.Opponent || boardArray[x,y] == ContenType.OpponentTrail)//if the board contains coordinates which equal to the opponents coordinates 
+                        myOpponent++;
+
+            return myOpponent;
         }
 
-        private int CountEmptySquaresAroundMe {
-            //TODO: Count all empty squares around  MySnail / MyTrail
+        private int CountEmptySquaresAroundMe()
+        {
+            int emptySquares = 0;
+
+            for (int x = 0; x < Width; x++)
+                for (int y = 0; y < Height; y++)
+                {
+                    if (boardArray[x, y] == ContenType.MyTrail || boardArray[x, y] == ContenType.MySnail)
+                    {
+                        emptySquares += this.CountAdjacentEmptySquares(x, y);
+                    }
+                }
+
+            return emptySquares;
+        }
+        
+        //TODO: Count all empty squares around  MySnail / MyTrail
+        private int CountEmptySquaresAroundOpponent()
+        {
+            int emptySquares = 0;
+
+            for (int x = 0; x < Width; x++)
+                for (int y = 0; y < Height; y++)
+                {
+                    if (boardArray[x, y] == ContenType.Opponent || boardArray[x, y] == ContenType.OpponentTrail)
+                    {
+                        emptySquares += this.CountAdjacentEmptySquares(x, y);
+                    }
+                }
+
+            return emptySquares;
         }
 
-        private int CountEmptySquaresAroundOpponent
-        {
-            //TODO: Count all empty squares around  Opponent / OpponentTrail
+        private int CountAdjacentEmptySquares(int initialX, int initialY) {
+            int count = 0;
+            int x1, y1;
+            for (x1 = initialX - 1; x1 <= initialX + 1; x1++)
+            {
+                for (y1 = initialY - 1; y1 <= initialY + 1; y1++)
+                {
+                    if (y1 >= 0 && y1 <= Height   // checkin if y value is within bounds of Grid
+                       && x1 >= 0 && x1 <= Width  // checking if x value is within bounds of Grid
+                       && Math.Abs(x1 - y1) == 1) // checking if we are looking only at right and left and up and down not diagonal )
+                    {
+
+                        if (boardArray[x1, y1] == ContenType.Empty)
+                        {
+                            count++;
+                        }//if
+                    }//if       
+                }//for
+            }//for
+
+            return count;
         }
 
         /// <summary>
@@ -180,9 +238,10 @@ namespace GridWorld
         /// </returns>
         internal double GetEstimatedResult(int p)
         {
-            //TODO: Calculate your Snail's count, Enemy's and find which one will be better.
-            // The score should represent which snail is better off in this board copy.
-            throw new NotImplementedException();
+            double myScore      = this.CountMySquares() + this.CountEmptySquaresAroundMe();
+            double enemyScore = this.CountOpponentSquares() + this.CountEmptySquaresAroundOpponent();
+
+            return myScore - enemyScore;
         }
 
         /// <summary>
