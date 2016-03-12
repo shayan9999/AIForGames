@@ -51,6 +51,15 @@ namespace GridWorld
             this.PopulateBoard(pws);
         }
 
+        // creates a copy of the board given
+        public Board(Board board) {
+            MyID = board.MyID; // I am just about to move
+            Width = board.Width;
+            Height = board.Height;
+
+            boardArray = board.GetCurrentBoard;
+        }
+
         public Board(PlayerWorldState pws, ContenType[,] initialBoard)
         {
             MyID = pws.ID; // I am just about to move
@@ -165,7 +174,7 @@ namespace GridWorld
         /// </summary>
         internal void DoMove(Command c)
         {
-            System.Diagnostics.Debug.Assert(boardArray[c.X, c.Y] == ContenType.MySnail); // better be my snail moving
+            //System.Diagnostics.Debug.Assert(boardArray[c.X, c.Y] == ContenType.MySnail); // better be my snail moving
 
             // When I move in direction dir, how do the (x,y) coordinates change.
             // E.g. When moving up I go from (x,y) to (x,y+1) so dx = 0, dy = +1
@@ -324,12 +333,13 @@ namespace GridWorld
         /// <returns> 
         /// double value to represent score for this board that shall be used in deciding the best move 
         /// </returns>
-        internal double GetEstimatedResult(int p)
+        internal double GetBoardScoreForPlayer()
         {
             double myScore      = this.CountMySquares() + this.CountEmptySquaresAroundMe();
             double enemyScore = this.CountOpponentSquares() + this.CountEmptySquaresAroundOpponent();
 
-            return myScore - enemyScore;
+            return this.CountMySquares();
+            //return myScore - enemyScore;
         }
 
         /// <summary>
