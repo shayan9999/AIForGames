@@ -1,3 +1,6 @@
+
+#define BESTOPTIONSEARCH
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +9,7 @@ using GridWorld;
 
 namespace GridWorld
 {
+
     public enum MiniMaxPlayer{
         Maximiser = 0,
         Minimiser = 1
@@ -26,7 +30,7 @@ namespace GridWorld
         {
             return (playerType == MiniMaxPlayer.Maximiser) ? MiniMaxPlayer.Minimiser : MiniMaxPlayer.Maximiser;
         }
-
+        
         private double MiniMax(Board currentBoard, MiniMaxPlayer playerType, int depth)
         {
             List<Command> movesAtThisStage = null;
@@ -88,201 +92,281 @@ namespace GridWorld
         /// </summary>
         public override ICommand GetTurnCommands(IPlayerWorldState igrid)
         {
-            #if true  // We need to implement these methods and use nested structure to evaluate different grid states
 
-                currentGridState        = (PlayerWorldState) igrid;
-                Board boardAtStartOfTurn     = new Board(currentGridState);
-                //WriteTrace(internalBoard);
-                
-                // Get all moves possible at this stage
-                List<Command> movesAtThisStage = boardAtStartOfTurn.GetMoves();
+            #if BESTOPTIONSEARCH
 
-                Command BestMove = movesAtThisStage[0];
-                double BestScore = double.MinValue; // start out at a value worse than any value we could get
-
-                // Evaluate all those moves one by one using Minimax algorithm to find the best move at this stage
-                foreach (Command c in movesAtThisStage)
-                {
-                    Board boardFromThisMove = new Board(boardAtStartOfTurn);
-
-                    double scoreBeforeMove = boardAtStartOfTurn.GetBoardScoreForPlayer();
-                    boardFromThisMove.DoMove(c); // the board resulting from doing move c
-                    double scoreAfterMove = boardFromThisMove.GetBoardScoreForPlayer();
-
-                    //Dont consider a turn that does not cover any new squares
-                    //if (scoreAfterMove <= scoreBeforeMove)
-                        //continue;
-
-                    //WriteTrace("Considering Move:" + c);
-
-                    double scoreFromMove = MiniMax(boardFromThisMove, MiniMaxPlayer.Minimiser, 1); // an estimate of who is winning in this position
-                    //WriteTrace("Score = " + bestScore);
-
-                    if (scoreFromMove > BestScore)
-                    {
-                        BestScore = scoreFromMove;
-                        BestMove = c;
-                    }
-                }
-
-                return BestMove; 
-
-
-            /*
                 currentGridState = (PlayerWorldState)igrid;
-
-                // create a new board with current state of the grid
-                Board internalBoard = new Board(currentGridState);
+                Board currentBoard = new Board(currentGridState);
                 //WriteTrace(internalBoard);
 
-                double scoreFirstLayer; // temporary estmated result for a board
-                Command BestMove = null;
-                double BestScore = double.MinValue; // start out at a value worse than any value we could get
+                
+                Command bestMove            = null;
+                double bestScoreAmongMoves  = double.MinValue; // start out at a value worse than any value we could get
 
-                List<Command> moves = internalBoard.GetMoves();
+                List<Command> moves         = currentBoard.GetMoves();
+                double scoreBeforeMove      = currentBoard.GetBoardScoreForPlayer();
 
+                double scoreFromThisMove; // temporary estmated result for a board
+                
                 foreach (Command c in moves)
                 {
-                    Board tempBoard = new Board(currentGridState);
-                    tempBoard.DoMove(c); // the board resulting from doing move c
+                    Board boardAfterMove = new Board(currentGridState);
+                    boardAfterMove.DoMove(c); // the board resulting from doing move c
                     //WriteTrace(tempBoard);
-
-                    scoreFirstLayer = tempBoard.GetBoardScoreForPlayer(); // an estimate of who is winning in this position
-
-                    int turnNumber              = 0;
-                    bool gotMoves               = true;
-                    ContenType[,] currentBoard  = tempBoard.GetCurrentBoard;
-
-                    while (gotMoves)
+                    scoreFromThisMove       = boardAfterMove.GetBoardScoreForPlayer(); // an estimate of who is winning in this position
+                    //WriteTrace("Score = " + r);
+                    if (scoreFromThisMove > bestScoreAmongMoves)
                     {
-                        turnNumber = (turnNumber + 1) % currentGridState.PlayerCount;
-                        
-                        //Board bestBoardThisLayer    = null;
-                        double bestScoreThisLayer   = 0;
-
-                        switch (turnNumber)
-                        {
-
-                            case 0:
-                                {
-                                    Board tempBoard2 = new Board(currentGridState, currentBoard);
-                                    List<Command> moves2 = tempBoard2.GetOpponentsMoves();
-                                    if (moves2.Count <= 2) { gotMoves = false; break; }
-
-                                    bestScoreThisLayer = BestScore;
-
-                                    foreach (Command c2 in moves2)
-                                    {
-                                        tempBoard2.DoOpponentMove(c2);
-                                        double scoreThisMove = tempBoard2.GetBoardScoreForPlayer();
-
-                                        if (bestScoreThisLayer + scoreThisMove > bestScoreThisLayer)
-                                        {
-                                            bestScoreThisLayer = bestScoreThisLayer + scoreThisMove;
-                                            BestMove = c;
-                                            //bestBoardThisLayer = tempBoard2;
-                                        }
-
-
-                                    }
-                                    break;
-                                }
-
-                            case 1:
-                                {
-                                    Board tempBoard2 = new Board(currentGridState, currentBoard);
-                                    List<Command> moves2 = tempBoard2.GetOpponentsMoves();
-                                    if (moves2.Count <= 2) { gotMoves = false; break; }
-                                    
-                                    bestScoreThisLayer = BestScore;
-
-                                    foreach (Command c2 in moves2)
-                                    {
-                                        tempBoard2.DoOpponentMove(c2);
-                                        double scoreThisMove = tempBoard2.GetEstimatedResult(this.ID);
-
-                                        if (bestScoreThisLayer + scoreThisMove > bestScoreThisLayer)
-                                        {
-                                            bestScoreThisLayer = bestScoreThisLayer + scoreThisMove;
-                                            BestMove = c;
-                                            //bestBoardThisLayer = tempBoard2;
-                                        }
-                                    }
-                                    break;
-                                }
-
-
-                            default:
-                                {
-
-                                    break;
-                                }
-
-                        } // switch
-
-                        BestScore = BestScore + bestScoreThisLayer;
-
+                        bestScoreAmongMoves = scoreFromThisMove;
+                        bestMove            = c;
                     }
-
-
-
-                    //ContenType[,] boardFromThisMove = tempBoard.GetCurrentBoard;
-                    //tempBoard.MyID = ((currentGridState.ID) % (currentGridState.PlayerCount + 1)) + 1;
-
                 }
 
-                return BestMove; */
+                // If not better score than the current state of board, try look forward and get a move that will eventually
+                // give a better score even if three moves are required. 
+                //TODO: if the last score and this score are the same, try finding the nearest empty square and move towards it
+                if (bestScoreAmongMoves <= scoreBeforeMove)
+                {
 
-            #else
-                currentGridState = (PlayerWorldState)igrid;
-                Command turnCommand;
+                    moves = currentBoard.GetMoves();
+                    double bestScoreThreeMoves = double.MinValue, scoreFromSecondMove, scoreFromThirdMove;
 
-                // initial positions of the player snail
-                int myX = 0; int myY = 0;
+                    foreach(Command c in moves){
 
-                // loop through the world grid and get the current players position
-                // Probably improve this to always have current position for this player on the GRID?
-                for (int x = 0; x < currentGridState.GridWidthInSquares; x++)
-                    for (int y = 0; y < currentGridState.GridHeightInSquares; y++)
-                        if (currentGridState[x, y].Contents == GridSquare.ContentType.Snail && currentGridState[x, y].Player == this.ID)
+                        Board boardAfterMove = new Board(currentGridState);
+                        boardAfterMove.DoMove(c); // the board resulting from doing move c
+                        //WriteTrace(tempBoard);
+                        scoreFromThisMove = boardAfterMove.GetBoardScoreForPlayer(); // an estimate of who is winning in this position
+
+                        List<Command> secondLevelMoves = boardAfterMove.GetMoves();
+
+                        foreach (Command c2 in secondLevelMoves)
                         {
-                            myX = x;
-                            myY = y;
+                            Board boardAfterMove2 = new Board(boardAfterMove);
+                            boardAfterMove2.DoMove(c2);
+                            scoreFromSecondMove = boardAfterMove2.GetBoardScoreForPlayer();
+
+                            List<Command> thirdLevelMoves = boardAfterMove.GetMoves();
+
+                            foreach (Command c3 in thirdLevelMoves) {
+
+                                Board boardAfterMove3 = new Board(boardAfterMove2);
+                                boardAfterMove3.DoMove(c3);
+                                scoreFromThirdMove = boardAfterMove3.GetBoardScoreForPlayer();
+
+                                if ((scoreFromThisMove + scoreFromSecondMove + scoreFromThirdMove) > bestScoreThreeMoves)
+                                {
+                                    bestScoreThreeMoves = (scoreFromThisMove + scoreFromSecondMove + scoreFromThirdMove);
+                                    bestMove = c;
+                                }
+                            
+                            }
+
+                            
+                        }
+                    }
+                    
+                }
+
+                return bestMove; 
+
+
+
+                #elif MINIMAX  // We need to implement these methods and use nested structure to evaluate different grid states
+
+                    currentGridState        = (PlayerWorldState) igrid;
+                    Board boardAtStartOfTurn     = new Board(currentGridState);
+                    //WriteTrace(internalBoard);
+                
+                    // Get all moves possible at this stage
+                    List<Command> movesAtThisStage = boardAtStartOfTurn.GetMoves();
+
+                    Command BestMove = movesAtThisStage[0];
+                    double BestScore = double.MinValue; // start out at a value worse than any value we could get
+
+                    // Evaluate all those moves one by one using Minimax algorithm to find the best move at this stage
+                    foreach (Command c in movesAtThisStage)
+                    {
+                        Board boardFromThisMove = new Board(boardAtStartOfTurn);
+
+                        double scoreBeforeMove = boardAtStartOfTurn.GetBoardScoreForPlayer();
+                        boardFromThisMove.DoMove(c); // the board resulting from doing move c
+                        double scoreAfterMove = boardFromThisMove.GetBoardScoreForPlayer();
+
+                        //Dont consider a turn that does not cover any new squares
+                        //if (scoreAfterMove <= scoreBeforeMove)
+                            //continue;
+
+                        //WriteTrace("Considering Move:" + c);
+
+                        double scoreFromMove = MiniMax(boardFromThisMove, MiniMaxPlayer.Minimiser, 1); // an estimate of who is winning in this position
+                        //WriteTrace("Score = " + bestScore);
+
+                        if (scoreFromMove > BestScore)
+                        {
+                            BestScore = scoreFromMove;
+                            BestMove = c;
+                        }
+                    }
+
+                    return BestMove; 
+
+
+                /*
+                    currentGridState = (PlayerWorldState)igrid;
+
+                    // create a new board with current state of the grid
+                    Board internalBoard = new Board(currentGridState);
+                    //WriteTrace(internalBoard);
+
+                    double scoreFirstLayer; // temporary estmated result for a board
+                    Command BestMove = null;
+                    double BestScore = double.MinValue; // start out at a value worse than any value we could get
+
+                    List<Command> moves = internalBoard.GetMoves();
+
+                    foreach (Command c in moves)
+                    {
+                        Board tempBoard = new Board(currentGridState);
+                        tempBoard.DoMove(c); // the board resulting from doing move c
+                        //WriteTrace(tempBoard);
+
+                        scoreFirstLayer = tempBoard.GetBoardScoreForPlayer(); // an estimate of who is winning in this position
+
+                        int turnNumber              = 0;
+                        bool gotMoves               = true;
+                        ContenType[,] currentBoard  = tempBoard.GetCurrentBoard;
+
+                        while (gotMoves)
+                        {
+                            turnNumber = (turnNumber + 1) % currentGridState.PlayerCount;
+                        
+                            //Board bestBoardThisLayer    = null;
+                            double bestScoreThisLayer   = 0;
+
+                            switch (turnNumber)
+                            {
+
+                                case 0:
+                                    {
+                                        Board tempBoard2 = new Board(currentGridState, currentBoard);
+                                        List<Command> moves2 = tempBoard2.GetOpponentsMoves();
+                                        if (moves2.Count <= 2) { gotMoves = false; break; }
+
+                                        bestScoreThisLayer = BestScore;
+
+                                        foreach (Command c2 in moves2)
+                                        {
+                                            tempBoard2.DoOpponentMove(c2);
+                                            double scoreThisMove = tempBoard2.GetBoardScoreForPlayer();
+
+                                            if (bestScoreThisLayer + scoreThisMove > bestScoreThisLayer)
+                                            {
+                                                bestScoreThisLayer = bestScoreThisLayer + scoreThisMove;
+                                                BestMove = c;
+                                                //bestBoardThisLayer = tempBoard2;
+                                            }
+
+
+                                        }
+                                        break;
+                                    }
+
+                                case 1:
+                                    {
+                                        Board tempBoard2 = new Board(currentGridState, currentBoard);
+                                        List<Command> moves2 = tempBoard2.GetOpponentsMoves();
+                                        if (moves2.Count <= 2) { gotMoves = false; break; }
+                                    
+                                        bestScoreThisLayer = BestScore;
+
+                                        foreach (Command c2 in moves2)
+                                        {
+                                            tempBoard2.DoOpponentMove(c2);
+                                            double scoreThisMove = tempBoard2.GetEstimatedResult(this.ID);
+
+                                            if (bestScoreThisLayer + scoreThisMove > bestScoreThisLayer)
+                                            {
+                                                bestScoreThisLayer = bestScoreThisLayer + scoreThisMove;
+                                                BestMove = c;
+                                                //bestBoardThisLayer = tempBoard2;
+                                            }
+                                        }
+                                        break;
+                                    }
+
+
+                                default:
+                                    {
+
+                                        break;
+                                    }
+
+                            } // switch
+
+                            BestScore = BestScore + bestScoreThisLayer;
+
                         }
 
-                List<GridSquare> emptySquares = GetAdjacentEmptySquares(myX, myY);
-                WriteTrace("Size: " + emptySquares.Count);
 
-                if (emptySquares.Count > 0)
-                {
-                    Random r = new Random();
-                    int index = r.Next(emptySquares.Count);
-                    GridSquare gs = (GridSquare)emptySquares[index];
 
-                    if (gs.X == myX + 1)
-                        turnCommand = new Command(myX, myY, Command.Direction.Right);
-                    else if (gs.X == myX - 1)
-                        turnCommand = new Command(myX, myY, Command.Direction.Left);
-                    else if (gs.Y == myY + 1)
-                        turnCommand = new Command(myX, myY, Command.Direction.Up);
-                    else if (gs.Y == myY - 1)
-                        turnCommand = new Command(myX, myY, Command.Direction.Down);
-                    else
-                    {
-                        WriteTrace(" NULL gs.X: " + gs.X + " myX:" + myX);
-                        WriteTrace(" NULL gs.Y: " + gs.Y + " myY:" + myY);
-                        turnCommand = null;
+                        //ContenType[,] boardFromThisMove = tempBoard.GetCurrentBoard;
+                        //tempBoard.MyID = ((currentGridState.ID) % (currentGridState.PlayerCount + 1)) + 1;
+
                     }
-                }
-                else
-                {
-                    WriteTrace(" NULL");
-                    turnCommand = null;
-                }
 
-                // The command for snail includes current position and a direction
-                return turnCommand;
-            #endif
+                    return BestMove; */
+
+                #else
+                    currentGridState = (PlayerWorldState)igrid;
+                        Command turnCommand;
+
+                        // initial positions of the player snail
+                        int myX = 0; int myY = 0;
+
+                        // loop through the world grid and get the current players position
+                        // Probably improve this to always have current position for this player on the GRID?
+                        for (int x = 0; x < currentGridState.GridWidthInSquares; x++)
+                            for (int y = 0; y < currentGridState.GridHeightInSquares; y++)
+                                if (currentGridState[x, y].Contents == GridSquare.ContentType.Snail && currentGridState[x, y].Player == this.ID)
+                                {
+                                    myX = x;
+                                    myY = y;
+                                }
+
+                        List<GridSquare> emptySquares = GetAdjacentEmptySquares(myX, myY);
+                        WriteTrace("Size: " + emptySquares.Count);
+
+                        if (emptySquares.Count > 0)
+                        {
+                            Random r = new Random();
+                            int index = r.Next(emptySquares.Count);
+                            GridSquare gs = (GridSquare)emptySquares[index];
+
+                            if (gs.X == myX + 1)
+                                turnCommand = new Command(myX, myY, Command.Direction.Right);
+                            else if (gs.X == myX - 1)
+                                turnCommand = new Command(myX, myY, Command.Direction.Left);
+                            else if (gs.Y == myY + 1)
+                                turnCommand = new Command(myX, myY, Command.Direction.Up);
+                            else if (gs.Y == myY - 1)
+                                turnCommand = new Command(myX, myY, Command.Direction.Down);
+                            else
+                            {
+                                WriteTrace(" NULL gs.X: " + gs.X + " myX:" + myX);
+                                WriteTrace(" NULL gs.Y: " + gs.Y + " myY:" + myY);
+                                turnCommand = null;
+                            }
+                        }
+                        else
+                        {
+                            WriteTrace(" NULL");
+                            turnCommand = null;
+                        }
+
+                        // The command for snail includes current position and a direction
+                        return turnCommand;
+                    #endif
         }
 
 

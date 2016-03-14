@@ -137,24 +137,48 @@ namespace GridWorld
 
             for (int x = 0; x < Width; x++)
                 for (int y = 0; y < Height; y++)
-                    if (boardArray[x, y] == ContenType.Opponent)
+                    if (boardArray[x, y] == ContenType.MySnail)
                     {
                         if (x >= 1 &&
-                            (boardArray[x - 1, y] == ContenType.Empty || boardArray[x - 1, y] == ContenType.OpponentTrail))
+                            (boardArray[x - 1, y] == ContenType.Empty || boardArray[x - 1, y] == ContenType.MyTrail))
                             commands.Add(new Command(x, y, Command.Direction.Left));
                         if (y >= 1 &&
-                            (boardArray[x, y - 1] == ContenType.Empty || boardArray[x, y - 1] == ContenType.OpponentTrail))
+                            (boardArray[x, y - 1] == ContenType.Empty || boardArray[x, y - 1] == ContenType.MyTrail))
                             commands.Add(new Command(x, y, Command.Direction.Down));
                         if (x <= Width - 2 &&
-                            (boardArray[x + 1, y] == ContenType.Empty || boardArray[x + 1, y] == ContenType.OpponentTrail))
+                            (boardArray[x + 1, y] == ContenType.Empty || boardArray[x + 1, y] == ContenType.MyTrail))
                             commands.Add(new Command(x, y, Command.Direction.Right));
                         if (y <= Height - 2 &&
-                            (boardArray[x, y + 1] == ContenType.Empty || boardArray[x, y + 1] == ContenType.OpponentTrail))
+                            (boardArray[x, y + 1] == ContenType.Empty || boardArray[x, y + 1] == ContenType.MyTrail))
                             commands.Add(new Command(x, y, Command.Direction.Up));
                     }
 
             return commands;
         }
+
+        internal Command MoveNearerToAnEmptySquare(){
+
+            Command command = null;
+            int positionX = 0, positionY = 0;
+            
+            //Get your position
+            for (int x = 0; x < Width; x++)
+                for (int y = 0; y < Height; y++)
+                    if (boardArray[x, y] == ContenType.MySnail){
+                        positionX = x;
+                        positionY = y;
+                    }
+
+            if (this.CountAdjacentEmptySquares(positionX, positionY) >= 1){
+                return MoveToAnEmptySquareAround(positionX, positionY);
+            }
+            else { 
+                //Find the closest empty square and go there
+            }
+
+            return command;
+        
+        } 
 
         /// <summary>
         /// Is (x,y) on the grid?
@@ -326,6 +350,22 @@ namespace GridWorld
             return count;
         }
 
+        private Command MoveToAnEmptySquareAround(int initialX, int initialY) {
+            
+            Command command = null;
+
+            if (initialX >= 1 && (boardArray[initialX - 1, initialY] == ContenType.Empty))
+                command = new Command(initialX, initialY, Command.Direction.Left);
+            if (initialY >= 1 && (boardArray[initialX, initialY - 1] == ContenType.Empty))
+               command = new Command(initialX, initialY, Command.Direction.Down);
+            if (initialX <= Width - 2 && (boardArray[initialX + 1, initialY] == ContenType.Empty))
+                command = new Command(initialX, initialY, Command.Direction.Right);
+            if (initialY <= Height - 2 && (boardArray[initialX, initialY + 1] == ContenType.Empty))
+                command = new Command(initialX, initialY, Command.Direction.Up);
+        
+            return command;
+        }
+
         /// <summary>
         /// Loop through boardArray squares to calculate the score
         /// </summary>
@@ -339,7 +379,7 @@ namespace GridWorld
             double enemyScore = this.CountOpponentSquares() + this.CountEmptySquaresAroundOpponent();
 
             return this.CountMySquares();
-            //return myScore - enemyScore;
+           // return myScore - enemyScore;
         }
 
         /// <summary>
